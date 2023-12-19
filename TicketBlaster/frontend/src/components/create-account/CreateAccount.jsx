@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import style from "./create-account-style/create-account.module.css";
+import style from "./create-account.module.css";
 
 export const CreateAccount = () => {
   const navigate = useNavigate();
