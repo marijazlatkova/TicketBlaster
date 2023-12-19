@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"node ./backend/services/auth/index.js\" \"node ./backend/services/storage/index.js\" \"node ./backend/services/events/index.js\" \"node ./backend/services/ecommerce/index.js\" \"node ./backend/services/users/index.js\""
+    "dev": "concurrently \"node ./backend/services/auth/index.js\" \"node ./backend/services/storage/index.js\" \"node ./backend/services/events/index.js\" \"node ./backend/services/ecommerce/index.js\" \"node ./backend/services/users/index.js\" \"cd ./frontend && npm start\""
   },
   "keywords": [],
   "author": "",

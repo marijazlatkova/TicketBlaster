@@ -1,0 +1,41 @@
+.create-account {
+  box-sizing: border-box;
+  font-family: "Lato", sans-serif;
+  margin: 25px 150px;
+}
+
+h2 {
+  font-size: 30px;
+}
+
+label {
+  font-size: 14px;
+  color: #393939;
+  font-weight: bold;
+}
+
+input {
+  padding: 8px 50px;
+  border-radius: 20px;
+  border: 2px solid #00000081;
+  margin: 11px 0px 11px 0px;
+}
+
+.create-account-button, 
+.login-link {
+  background-color: #FF48AB;
+  color: #ffffffcc;
+  border-radius: 20px;
+  border: none;
+  padding: 11px 88px;
+  font-size: 13px;
+  margin-bottom: 18px;
+  font-weight: bold;
+}
+
+.login-link {
+  background-color: #FFF;
+  border: 2px solid #EF46AB;
+  padding: 9px 53px;
+  color: #000000cd;
+}
