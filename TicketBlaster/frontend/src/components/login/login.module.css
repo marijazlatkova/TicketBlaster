@@ -1,42 +1,50 @@
-.create-account {
+.login {
   box-sizing: border-box;
   font-family: "Lato", sans-serif;
   margin: 25px 150px;
 }
 
-.create-account h2 {
+.login h2 {
   font-size: 30px;
 }
 
-.create-account label {
+.login label {
   font-size: 14px;
   color: #393939;
   font-weight: bold;
 }
 
-.create-account input {
+.login input {
   padding: 8px 50px;
   border-radius: 20px;
   border: 2px solid #00000081;
   margin: 11px 0px 11px 0px;
 }
 
-.create-account-button, 
-.login-link {
+.login a {
+  color: #393939;
+  text-decoration: underline;
+  font-size: 14.5px;
+  margin-right: 50px;
+  cursor: pointer;
+}
+
+.login-button, 
+.create-account-link {
   background-color: #FF48AB;
   color: #ffffffcc;
   border-radius: 20px;
   border: none;
-  padding: 11px 88px;
+  padding: 9.5px 33px;
   font-size: 13px;
   margin-bottom: 18px;
   font-weight: bold;
   cursor: pointer;
 }
 
-.login-link {
+.create-account-link {
   background-color: #FFF;
   border: 2px solid #EF46AB;
-  padding: 9px 53px;
+  padding: 9px 58px;
   color: #000000cd;
 }

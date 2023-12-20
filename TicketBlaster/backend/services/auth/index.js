@@ -1,11 +1,13 @@
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 const auth = require("./handlers/auth");
 const db = require("../../pkg/db");
 
 const app = express();
 
 db.init();
+app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 
