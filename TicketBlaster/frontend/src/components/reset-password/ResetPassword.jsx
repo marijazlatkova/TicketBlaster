@@ -1,16 +1,21 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import style from "./create-account.module.css";
+import { useNavigate, useLocation } from "react-router-dom";
 
-export const CreateAccount = () => {
+import style from "./reset-password.module.css";
+
+export const ResetPassword = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const token = queryParams.get("token");
 
   const [data, setData] = useState({
-    fullname: "",
-    email: "",
     password: "",
     retype_password: "",
   });
+
+  const [successMessage, setSuccessMessage] = useState(null);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const dataChange = (e) => {
     setData({
@@ -19,12 +24,17 @@ export const CreateAccount = () => {
     });
   };
 
-  const createAccount = async (e) => {
+  const resetPassword = async (e) => {
     e.preventDefault();
+
+    if (data.password !== data.retype_password) {
+      setErrorMessage("Passwords do not match");
+      return;
+    }
 
     try {
       const res = await fetch(
-        "http://localhost:10001/api/v1/auth/create-account",
+        `http://localhost:10001/api/v1/auth/reset-password?token=${token}`,
         {
           method: "POST",
           body: JSON.stringify(data),
@@ -35,42 +45,24 @@ export const CreateAccount = () => {
       );
 
       if (res.ok) {
+        setSuccessMessage("Password reset successfully!");
         navigate("/login");
       } else {
-        console.log("An error has occurred");
+        const errorData = await res.json();
+        setErrorMessage(errorData.message);
       }
     } catch (err) {
       console.log(err);
+      setErrorMessage("An unexpected error occurred");
     }
   };
 
   return (
-    <div className={style["create-account"]}>
-      <h2>Create Account</h2>
-      <br />
-      <form onSubmit={createAccount}>
-        <label>
-          Full Name
-          <br />
-          <input
-            type="text"
-            name="fullname"
-            value={data.fullname}
-            onChange={dataChange}
-          />
-        </label>
-        <br />
-        <label>
-          Email
-          <br />
-          <input
-            type="email"
-            name="email"
-            value={data.email}
-            onChange={dataChange}
-          />
-        </label>
-        <br />
+    <div className={style["reset-password"]}>
+      <h2>Reset Password</h2>
+      {successMessage && <p>{successMessage}</p>}
+      {errorMessage && <p>{errorMessage}</p>}
+      <form onSubmit={resetPassword}>
         <label>
           Password
           <br />
@@ -83,7 +75,7 @@ export const CreateAccount = () => {
         </label>
         <br />
         <label>
-          Re-type Password
+          Re-Type password
           <br />
           <input
             type="password"
@@ -94,16 +86,16 @@ export const CreateAccount = () => {
         </label>
         <br />
         <br />
-        <button className={style["create-account-button"]} type="submit">
-          Create account
+        <button className={style["reset-password-button"]} type="submit">
+          Reset Password
         </button>
       </form>
       <br />
       <button
-        className={style["login-link"]}
+        className={style["back-to-login"]}
         onClick={() => navigate("/login")}
       >
-        Already have an account?
+        Back to login
       </button>
     </div>
   );
