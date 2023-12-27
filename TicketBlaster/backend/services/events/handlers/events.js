@@ -24,12 +24,15 @@ const create = async (req, res) => {
       const filename = req.file.filename;
       req.body.image = filename;
     }
-    const relatedActs = req.body.relatedActs.split(",");
+    let relatedActs = [];
+    if (req.body.relatedActs) {
+      relatedActs = req.body.relatedActs.split(",");
+    }
     const event = await Event.create({
       ...req.body,
       relatedActs: relatedActs
     });
-    return res.status(201).send(event);
+    return res.status(201).json(event);
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -37,9 +40,9 @@ const create = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const event = await Event.find().populate("relatedActs");
-    event.sort((a, b) => new Date(a.date) - new Date(b.date));
-    return res.status(200).send(event);
+    const events = await Event.find().populate("relatedActs");
+    events.sort((a, b) => new Date(a.date) - new Date(b.date));
+    return res.status(200).json(events);
   } catch(err) {
     return res.status(500).send("Internal Server Error");
   }

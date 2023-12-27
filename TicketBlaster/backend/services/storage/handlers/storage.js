@@ -1,14 +1,16 @@
 const multer = require("multer");
 const uuid = require("uuid");
 const imageId = uuid.v4();
+const path = require("path");
 
 const multerStorage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "public/images");
+    const absolutePath = path.resolve(__dirname, "../../../public/images");
+    cb(null, absolutePath);
   },
   filename: (req, file, cb) => {
     const ext = file.mimetype.split("/")[1];
-    cb(null, `profile-${imageId}-${Date.now()}.${ext}`);
+    cb(null, `event-${imageId}-${Date.now()}.${ext}`);
   }
 });
 
