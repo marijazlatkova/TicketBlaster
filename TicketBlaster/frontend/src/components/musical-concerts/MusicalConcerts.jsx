@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
 import style from "./musical-concerts.module.css";
 
 export const MusicalConcerts = () => {
@@ -30,43 +29,44 @@ export const MusicalConcerts = () => {
 
   return (
     <div className={style["musical-concerts"]}>
-      <h1>Musical Concerts</h1>
-      <div>
-        <div className={style["concerts"]}>
-          {concerts &&
-            concerts
-              .filter((concert) => concert.category === "Musical Concert")
-              .slice(0, displayConcerts)
-              .map((concert, i) => (
-                <div key={i}>
-                  <div>
-                    <img
-                      width="250px"
-                      height="180px"
-                      src={`http://localhost:10002/images/${concert.image}`}
-                      alt={concert.name}
-                    />
-                  </div>
-                  <div>
-                    <p>{concert.name}</p>
-                    <p>
-                      {new Date(concert.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
-                    </p>
-                    <p>{concert.eventDetails}</p>
-                    <div>
-                      <p>{concert.location}</p>
-                      <Link to={`/event/${concert._id}`}>Get Tickets</Link>
-                    </div>
+      <h2>Musical Concerts</h2>
+      <div className={style["concerts"]}>
+        {concerts &&
+          concerts
+            .filter((concert) => concert.category === "Musical Concert")
+            .slice(0, displayConcerts)
+            .map((concert, i) => (
+              <div key={i} className={style["concert"]}>
+                <div>
+                  <img
+                    width="250px"
+                    height="180px"
+                    src={`http://localhost:10002/images/${concert.image}`}
+                    alt={concert.name}
+                  />
+                </div>
+                <div className={style["first-section"]}>
+                  <p>{concert.name}</p>
+                  <p>
+                    {new Date(concert.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                  <p>
+                    {concert.eventDetails.split(" ").slice(0, 22).join(" ")}
+                    {concert.eventDetails.split(" ").length > 22 && "..."}
+                  </p>
+                  <div className={style["second-section"]}>
+                    <p>{concert.location}</p>
+                    <Link to={`/event/${concert._id}`}>Get Tickets</Link>
                   </div>
                 </div>
-              ))}
-        </div>
-        <Link onClick={loadMore}>Load More Musical Concerts</Link>
+              </div>
+            ))}
       </div>
+      <Link onClick={loadMore}>Load More Musical Concerts</Link>
     </div>
   );
 };
