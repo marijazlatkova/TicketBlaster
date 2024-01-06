@@ -10,6 +10,9 @@ export const Nav = () => {
           <Link to="/musical-concerts">Musical Concerts</Link>
         </li>
         <li>
+          <Link to="/stand-up-comedy">Stand-up Comedy</Link>
+        </li>
+        <li>
           <Link to="/login">Log in</Link>
         </li>
         <li>
