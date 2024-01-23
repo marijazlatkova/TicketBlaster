@@ -6,12 +6,14 @@ import { ForgotPassword } from "./components/forgot-password/ForgotPassword";
 import { ResetPassword } from "./components/reset-password/ResetPassword";
 import { MusicalConcerts } from "./components/musical-concerts/MusicalConcerts";
 import { StandUpComedy } from "./components/stand-up-comedy/StandUpComedy";
+import { SearchEvents } from "./components/search-events/SearchEvents";
 
 export const App = () => {
   return (
     <div id="app">
       <Nav />
       <Routes>
+        <Route path="/events" element={<SearchEvents />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />
