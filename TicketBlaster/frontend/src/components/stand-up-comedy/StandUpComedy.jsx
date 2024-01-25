@@ -40,8 +40,6 @@ export const StandUpComedy = () => {
               <div key={i} className={style["comedy"]}>
                 <div>
                   <img
-                    width="250px"
-                    height="180px"
                     src={`http://localhost:10002/images/${comedy.image}`}
                     alt={comedy.name}
                   />

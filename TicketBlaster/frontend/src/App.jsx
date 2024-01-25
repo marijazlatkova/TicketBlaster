@@ -8,6 +8,7 @@ import { ResetPassword } from "./components/reset-password/ResetPassword";
 import { MusicalConcerts } from "./components/musical-concerts/MusicalConcerts";
 import { StandUpComedy } from "./components/stand-up-comedy/StandUpComedy";
 import { SearchEvents } from "./components/search-events/SearchEvents";
+import { Footer } from "./components/footer/Footer";
 
 export const App = () => {
   return (
@@ -23,6 +24,7 @@ export const App = () => {
         <Route path="/musical-concerts" element={<MusicalConcerts />} />
         <Route path="/stand-up-comedy" element={<StandUpComedy />} />
       </Routes>
+      <Footer />
     </div>
   );
 };

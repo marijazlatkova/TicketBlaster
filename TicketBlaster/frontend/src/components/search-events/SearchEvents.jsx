@@ -52,14 +52,14 @@ export const SearchEvents = () => {
                 <div>
                   <p className={style["event-name"]}>{event.name}</p>
                   <p className={style["event-details"]}>{event.eventDetails}</p>
-                  <p className={style["search-date"]}>
+                  <p className={style["event-date"]}>
                     {new Date(event.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </p>
-                  <p className={style["search-location"]}>{event.location}</p>
+                  <p className={style["event-location"]}>{event.location}</p>
                 </div>
                 <div>
                   <Link to={`/event/${event._id}`}>Get tickets</Link>

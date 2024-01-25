@@ -40,8 +40,6 @@ export const MusicalConcerts = () => {
               <div key={i} className={style["concert"]}>
                 <div>
                   <img
-                    width="250px"
-                    height="180px"
                     src={`http://localhost:10002/images/${concert.image}`}
                     alt={concert.name}
                   />
