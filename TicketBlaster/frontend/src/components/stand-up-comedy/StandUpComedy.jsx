@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import style from "./stand-up-comedy.module.css";
 
 export const StandUpComedy = () => {

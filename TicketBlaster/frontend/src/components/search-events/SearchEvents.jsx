@@ -17,10 +17,7 @@ export const SearchEvents = () => {
         }
 
         const resData = await res.json();
-        console.log("API Response:", resData);
-
         const allEvents = resData;
-        console.log("All Events:", allEvents);
 
         const filteredEvents = allEvents.filter(
           (event) =>
@@ -28,8 +25,6 @@ export const SearchEvents = () => {
             event.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
             event.eventDetails.toLowerCase().includes(searchQuery.toLowerCase())
         );
-
-        console.log("Filtered Events:", filteredEvents);
 
         setEvents(filteredEvents);
       } catch (err) {
@@ -45,8 +40,8 @@ export const SearchEvents = () => {
       <h1>Search Results for: {searchQuery}</h1>
       <div>
         {events.length > 0 ? (
-          events.map((event) => (
-            <div key={event._id}>
+          events.map((event, i) => (
+            <div key={i}>
               <div>
                 <img
                   src={`http://localhost:10002/images/${event.image}`}

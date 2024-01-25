@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Nav } from "./components/nav/Nav";
+import { Events } from "./components/events/Events";
 import { CreateAccount } from "./components/create-account/CreateAccount";
 import { Login } from "./components/login/Login";
 import { ForgotPassword } from "./components/forgot-password/ForgotPassword";
@@ -13,6 +14,7 @@ export const App = () => {
     <div id="app">
       <Nav />
       <Routes>
+        <Route path="/" element={<Events />} />
         <Route path="/events" element={<SearchEvents />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/login" element={<Login />} />

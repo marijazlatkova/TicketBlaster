@@ -30,6 +30,18 @@ export const Nav = () => {
         <li>
           <Link to="/stand-up-comedy">Stand-up Comedy</Link>
         </li>
+        <div>
+          <input
+            type="search"
+            name="keyword"
+            id="keyword"
+            placeholder="Search..."
+            className={style["search"]}
+            onKeyDown={handleSearchInputChange}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+          />
+        </div>
         <li>
           <Link to="/login">Log in</Link>
         </li>
@@ -37,18 +49,6 @@ export const Nav = () => {
           <Link to="/create-account">Create Account</Link>
         </li>
       </ul>
-      <div>
-        <input
-          type="search"
-          name="keyword"
-          id="keyword"
-          placeholder="Search..."
-          className={style["search"]}
-          onKeyDown={handleSearchInputChange}
-          value={searchInput}
-          onChange={(e) => setSearchInput(e.target.value)}
-        />
-      </div>
     </div>
   );
 };

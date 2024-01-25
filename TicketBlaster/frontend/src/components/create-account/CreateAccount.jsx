@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import style from "./create-account.module.css";
 
 export const CreateAccount = () => {
