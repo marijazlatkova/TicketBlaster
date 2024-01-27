@@ -46,6 +46,7 @@ export const ForgotPassword = () => {
   return (
     <div className={style["forgot-password"]}>
       <h2>Forgot Password</h2>
+      <br />
       <form onSubmit={forgotPassword}>
         <label>
           Email

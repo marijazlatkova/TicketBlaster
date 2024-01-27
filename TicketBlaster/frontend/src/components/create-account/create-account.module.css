@@ -1,21 +1,21 @@
 .create-account {
-  box-sizing: border-box;
-  font-family: "Lato", sans-serif;
-  margin: 25px 150px;
+  margin: 40px 270px;
 }
 
 .create-account h2 {
-  font-size: 30px;
+  font-size: 27px;
+  font-weight: bold;
+  margin-bottom: 15px;
 }
 
 .create-account label {
-  font-size: 14px;
+  font-size: 12px;
   color: #393939;
   font-weight: bold;
 }
 
 .create-account input {
-  padding: 8px 50px;
+  padding: 5px 35px;
   border-radius: 20px;
   border: 2px solid #00000081;
   margin: 11px 0px 11px 0px;
@@ -27,8 +27,8 @@
   color: #ffffffcc;
   border-radius: 20px;
   border: none;
-  padding: 11px 88px;
-  font-size: 13px;
+  padding: 8px 75px;
+  font-size: 12px;
   margin-bottom: 18px;
   font-weight: bold;
   cursor: pointer;
@@ -37,6 +37,6 @@
 .login-link {
   background-color: #FFF;
   border: 2px solid #EF46AB;
-  padding: 9px 53px;
+  padding: 6px 41px;
   color: #000000cd;
 }

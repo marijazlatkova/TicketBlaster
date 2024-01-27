@@ -20,35 +20,41 @@ export const Nav = () => {
 
   return (
     <div className={style["nav"]}>
-      <Link to="/">
-        <img src={logo} alt="logo" className={style["logo"]} />
-      </Link>
-      <ul>
-        <li>
-          <Link to="/musical-concerts">Musical Concerts</Link>
-        </li>
-        <li>
-          <Link to="/stand-up-comedy">Stand-up Comedy</Link>
-        </li>
+      <div className={style["left-section"]}>
+        <Link to="/">
+          <img src={logo} alt="logo" className={style["logo"]} />
+        </Link>
+        <ul>
+          <li className={style["musical-concerts"]}>
+            <Link to="/musical-concerts">Musical Concerts</Link>
+          </li>
+          <li className={style["stand-up-comedy"]}>
+            <Link to="/stand-up-comedy">Stand-up Comedy</Link>
+          </li>
+        </ul>
+      </div>
+      <div className={style["right-section"]}>
         <div>
           <input
             type="search"
             name="keyword"
             id="keyword"
-            placeholder="Search..."
+            placeholder="Search"
             className={style["search"]}
             onKeyDown={handleSearchInputChange}
             value={searchInput}
             onChange={(e) => setSearchInput(e.target.value)}
           />
         </div>
-        <li>
-          <Link to="/login">Log in</Link>
-        </li>
-        <li>
-          <Link to="/create-account">Create Account</Link>
-        </li>
-      </ul>
+        <ul>
+          <li className={style["login"]}>
+            <Link to="/login">Log In</Link>
+          </li>
+          <li className={style["create-account"]}>
+            <Link to="/create-account">Create Account</Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 };

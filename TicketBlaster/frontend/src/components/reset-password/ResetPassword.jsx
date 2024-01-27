@@ -60,6 +60,7 @@ export const ResetPassword = () => {
   return (
     <div className={style["reset-password"]}>
       <h2>Reset Password</h2>
+      <br />
       {successMessage && <p>{successMessage}</p>}
       {errorMessage && <p>{errorMessage}</p>}
       <form onSubmit={resetPassword}>

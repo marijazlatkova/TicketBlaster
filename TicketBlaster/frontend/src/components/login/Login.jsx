@@ -45,6 +45,7 @@ export const Login = () => {
   return (
     <div className={style["login"]}>
       <h2>Log In</h2>
+      <br />
       <form onSubmit={login}>
         <label>
           Email
@@ -71,7 +72,7 @@ export const Login = () => {
         <br />
         <a onClick={() => navigate("/forgot-password")}>Forgot Password?</a>
         <button className={style["login-button"]} type="submit">
-          Login
+          Log In
         </button>
       </form>
       <br />
