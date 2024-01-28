@@ -6,6 +6,8 @@ import style from "./musical-concerts.module.css";
 export const MusicalConcerts = () => {
   const [concerts, setConcerts] = useState([]);
   const [displayConcerts, setDisplayConcerts] = useState(6);
+  const maxWordsPerRow = 10;
+  const maxRows = 2;
 
   const getMusicalConcerts = async () => {
     try {
@@ -18,6 +20,15 @@ export const MusicalConcerts = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const truncateEventDetails = (details) => {
+    const words = details.split(" ");
+    const truncatedWords = words.slice(0, maxWordsPerRow * maxRows);
+    return (
+      truncatedWords.join(" ") +
+      (words.length > maxWordsPerRow * maxRows ? "..." : "")
+    );
   };
 
   const loadMore = () => {
@@ -45,27 +56,37 @@ export const MusicalConcerts = () => {
                   />
                 </div>
                 <div className={style["first-section"]}>
-                  <p>{concert.name}</p>
-                  <p>
+                  <p className={style["concert-name"]}>{concert.name}</p>
+                  <p className={style["concert-date"]}>
                     {new Date(concert.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </p>
-                  <p>
-                    {concert.eventDetails.split(" ").slice(0, 22).join(" ")}
-                    {concert.eventDetails.split(" ").length > 22 && "..."}
+                  <p className={style["concert-details"]}>
+                    {truncateEventDetails(concert.eventDetails)}
                   </p>
                   <div className={style["second-section"]}>
-                    <p>{concert.location}</p>
-                    <Link to={`/event/${concert._id}`}>Get Tickets</Link>
+                    <p className={style["concert-location"]}>
+                      {concert.location}
+                    </p>
+                    <Link
+                      className={style["get-tickets"]}
+                      to={`/event/${concert._id}`}
+                    >
+                      Get Tickets
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
       </div>
-      <Link onClick={loadMore}>Load More Musical Concerts</Link>
+      {concerts.length > displayConcerts && (
+        <Link className={style["load-more-concerts"]} onClick={loadMore}>
+          Load More Musical Concerts
+        </Link>
+      )}
     </div>
   );
 };

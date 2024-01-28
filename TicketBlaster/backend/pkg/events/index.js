@@ -19,7 +19,7 @@ const eventSchema = new mongoose.Schema({
   },
   genre: {
     type: String,
-    enum: ["rock", "metal", "electronic", "rap", "pop", "comedy"]
+    enum: ["rock", "metal", "electronic", "rap", "pop", "jazz", "grunge", "comedy"]
   },
   eventDetails: {
     type: String
