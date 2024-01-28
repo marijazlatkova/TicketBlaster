@@ -1,0 +1,86 @@
+.stand-up-comedy {
+  padding: 60px 270px;
+}
+
+.stand-up-comedy h2 {
+  padding: 25px 0;
+  font-size: 27px;
+}
+
+.comedies {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.comedy {
+  width: calc(48% - 10px);
+  margin-bottom: 20px;
+  display: flex;
+}
+
+.comedy img {
+  width: 220px;
+  height: 152px;
+  border-radius: 8px;
+}
+
+.comedy p {
+  flex: 1;
+  padding: 0 15px;
+  text-align: justify;
+}
+
+.first-section {
+  margin-top: 10px;
+}
+
+.second-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.comedy-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: -12px;
+}
+
+.comedy-date {
+  font-size: 13.9px;
+  color: #FF48AB;
+  font-weight: bold;
+}
+
+.comedy-details,
+.comedy-location {
+  margin-top: 5px;
+  font-size: 13.5px;
+  color: #393939f5;
+}
+
+.comedy-location {
+  font-weight: bold;
+}
+
+.get-tickets {
+  font-size: 12px;
+  margin-top: 3px;
+  background-color: #000;
+  color: #FFF;
+  padding: 3px 12px;
+  border-radius: 50px;
+}
+
+.load-more-comedies {
+  display: block;
+  color: #000;
+  margin: 50px 0;
+  padding: 5px 20px;
+  border: 2px solid #0000007f;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 50px;
+}

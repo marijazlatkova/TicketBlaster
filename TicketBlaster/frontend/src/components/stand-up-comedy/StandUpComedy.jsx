@@ -6,6 +6,8 @@ import style from "./stand-up-comedy.module.css";
 export const StandUpComedy = () => {
   const [comedies, setComedies] = useState([]);
   const [displayComedies, setDisplayComedies] = useState(6);
+  const maxWordsPerRow = 10;
+  const maxRows = 2;
 
   const getStandUpComedies = async () => {
     try {
@@ -18,6 +20,15 @@ export const StandUpComedy = () => {
     } catch (err) {
       console.log(err);
     }
+  };
+
+  const truncateEventDetails = (details) => {
+    const words = details.split(" ");
+    const truncatedWords = words.slice(0, maxWordsPerRow * maxRows);
+    return (
+      truncatedWords.join(" ") +
+      (words.length > maxWordsPerRow * maxRows ? "..." : "")
+    );
   };
 
   const loadMore = () => {
@@ -45,27 +56,37 @@ export const StandUpComedy = () => {
                   />
                 </div>
                 <div className={style["first-section"]}>
-                  <p>{comedy.name}</p>
-                  <p>
+                  <p className={style["comedy-name"]}>{comedy.name}</p>
+                  <p className={style["comedy-date"]}>
                     {new Date(comedy.date).toLocaleDateString("en-US", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
                     })}
                   </p>
-                  <p>
-                    {comedy.eventDetails.split(" ").slice(0, 22).join(" ")}
-                    {comedy.eventDetails.split(" ").length > 22 && "..."}
+                  <p className={style["comedy-details"]}>
+                    {truncateEventDetails(comedy.eventDetails)}
                   </p>
                   <div className={style["second-section"]}>
-                    <p>{comedy.location}</p>
-                    <Link to={`/event/${comedy._id}`}>Get Tickets</Link>
+                    <p className={style["comedy-location"]}>
+                      {comedy.location}
+                    </p>
+                    <Link
+                      className={style["get-tickets"]}
+                      to={`/event/${comedy._id}`}
+                    >
+                      Get Tickets
+                    </Link>
                   </div>
                 </div>
               </div>
             ))}
       </div>
-      <Link onClick={loadMore}>Load More Stand-Up Comedy Shows</Link>
+      {comedies.length > displayComedies && (
+        <Link className={style["load-more-comedies"]} onClick={loadMore}>
+          Load More Stand-Up Comedy Shows
+        </Link>
+      )}
     </div>
   );
 };
