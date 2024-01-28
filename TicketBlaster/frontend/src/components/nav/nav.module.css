@@ -4,6 +4,10 @@ a {
 }
 
 .nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -21,6 +25,7 @@ a {
   height: auto;
   margin-right: 30px;
   margin-left: 250px;
+  margin-top: 5px;
 }
 
 ul {
