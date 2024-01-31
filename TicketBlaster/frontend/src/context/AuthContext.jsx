@@ -7,7 +7,7 @@ export const AuthProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState("");
   const [userId, setUserId] = useState("");
-  const [userDefaultImg, setUserDefaultImage] = useState("");
+  const [userImage, setUserImage] = useState("");
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,8 +17,8 @@ export const AuthProvider = ({ children }) => {
     localStorage.setItem("searchQuery", query);
   };
 
-  const updateDefaultImg = (newImage) => {
-    setUserDefaultImage(newImage);
+  const updateUserImage = (newImage) => {
+    setUserImage(newImage);
   };
 
   const fetchUserData = async () => {
@@ -37,12 +37,12 @@ export const AuthProvider = ({ children }) => {
         const data = await res.json();
         const user = data.user;
 
-        setUserDefaultImage(user.image);
+        setUserImage(user.image);
         setUserName(user.name);
         setUserEmail(user.email);
       }
     } catch (err) {
-      console.log(err);
+      console.log("Error fetching user data:", err);
     }
   };
 
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
     setIsLoggedIn(false);
     setUserRole("");
     setUserId("");
-    setUserDefaultImage("");
+    setUserImage("");
     setUserName("");
     setUserEmail("");
   };
@@ -73,12 +73,12 @@ export const AuthProvider = ({ children }) => {
     isLoggedIn,
     userRole,
     userId,
-    userDefaultImg,
+    userImage,
     userName,
     userEmail,
     searchQuery,
     updateSearchQuery,
-    updateDefaultImg,
+    updateUserImage,
     setIsLoggedIn,
     logIn,
     logOut,
