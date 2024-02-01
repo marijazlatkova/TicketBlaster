@@ -52,6 +52,10 @@ li {
   margin-right: 20px;
 }
 
+.search:focus {
+  outline: none;
+}
+
 ::placeholder {
   color: #393939ca;
   font-size: 12px;

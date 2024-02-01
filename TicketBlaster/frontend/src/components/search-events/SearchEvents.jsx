@@ -5,8 +5,10 @@ import { AuthContext } from "../../context/AuthContext";
 import style from "./search-events.module.css";
 
 export const SearchEvents = () => {
-  const [events, setEvents] = useState([]);
   const { searchQuery } = useContext(AuthContext);
+  const [events, setEvents] = useState([]);
+  const maxWordsPerRow = 10;
+  const maxRows = 7;
 
   useEffect(() => {
     const searchedEvents = async () => {
@@ -23,7 +25,8 @@ export const SearchEvents = () => {
           (event) =>
             event.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
             event.date.toLowerCase().includes(searchQuery.toLowerCase()) ||
-            event.eventDetails.toLowerCase().includes(searchQuery.toLowerCase())
+            event.genre.toLowerCase().includes(searchQuery.toLowerCase()) ||
+            event.location.toLowerCase().includes(searchQuery.toLowerCase())
         );
 
         setEvents(filteredEvents);
@@ -35,13 +38,22 @@ export const SearchEvents = () => {
     searchedEvents();
   }, [searchQuery]);
 
+  const truncateEventDetails = (details) => {
+    const words = details.split(" ");
+    const truncatedWords = words.slice(0, maxWordsPerRow * maxRows);
+    return (
+      truncatedWords.join(" ") +
+      (words.length > maxWordsPerRow * maxRows ? "..." : "")
+    );
+  };
+
   return (
     <div className={style["search-events"]}>
-      <h1>Search Results for: {searchQuery}</h1>
-      <div>
+      <div className={style["search-container"]}>
+        <h2>Search Results for: {searchQuery}</h2>
         {events.length > 0 ? (
           events.map((event, i) => (
-            <div key={i}>
+            <div key={i} className={style["search"]}>
               <div>
                 <img
                   src={`http://localhost:10002/images/${event.image}`}
@@ -49,20 +61,29 @@ export const SearchEvents = () => {
                 />
               </div>
               <div>
-                <div>
+                <div className={style["first-section"]}>
                   <p className={style["event-name"]}>{event.name}</p>
-                  <p className={style["event-details"]}>{event.eventDetails}</p>
-                  <p className={style["event-date"]}>
-                    {new Date(event.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+                  <p className={style["event-details"]}>
+                    {truncateEventDetails(event.eventDetails)}
                   </p>
-                  <p className={style["event-location"]}>{event.location}</p>
                 </div>
-                <div>
-                  <Link to={`/event/${event._id}`}>Get tickets</Link>
+                <div className={style["second-section"]}>
+                  <div className={style["event-date-location-wrapper"]}>
+                    <p className={style["event-date"]}>
+                      {new Date(event.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                    <p className={style["event-location"]}>{event.location}</p>
+                  </div>
+                  <Link
+                    className={style["get-tickets"]}
+                    to={`/event/${event._id}`}
+                  >
+                    Get tickets
+                  </Link>
                 </div>
               </div>
             </div>
