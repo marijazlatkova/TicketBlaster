@@ -1,0 +1,198 @@
+.event {
+  padding: 90px 270px;
+}
+
+.first-section {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.event-name {
+  margin-bottom: 10px;
+  font-size: 25px;
+}
+
+.event-date,
+.event-location {
+  color: #393939;
+  font-weight: bold;
+}
+
+.second-section {
+  margin-top: 15px;
+  display: flex;
+  gap: 20px;
+}
+
+.event-image {
+  width: 500px;
+  height: 330px;
+  border-radius: 15px;
+}
+
+.about {
+  font-size: 18px;
+  font-weight: bold;
+  padding-bottom: 10px;
+}
+
+.event-details {
+  text-align: justify;
+  padding-bottom: 10px;
+}
+
+.event-tickets-price-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 10px;
+}
+
+.tickets,
+.event-price {
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.event-price {
+  color: #FF48AB;
+}
+
+.quantity {
+  width: 70px;
+  height: 26px;
+  border-radius: 50px;
+  padding-left: 28px;
+  border: 2px solid #393939c5;
+  color: #393939c5;
+  font-weight: bold;
+  margin-right: 20px;
+}
+
+.add-to-cart {
+  padding: 6px 20px;
+  border-radius: 50px;
+  border: none;
+  font-size: 13px;
+  background-color: #000;
+  color: #fff;
+  cursor: pointer;
+}
+
+.pop-up-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding: 50px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #555;
+}
+
+.login,
+.create-account {
+  padding: 6px 25px;
+  width: 300px;
+  color: #000000cf;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+}
+
+.login {
+  background-color: #FF48AB;
+  border: none;
+}
+
+.create-account {
+  background-color: #fff;
+  border: 1px solid #FF48AB;
+}
+
+.third-section {
+  margin: 30px 0px;
+  display: flex;
+  flex-direction: row;
+  gap: 60px;
+}
+
+.related-acts-title {
+  font-size: 18px;
+  margin-top: 50px;
+}
+
+.related-acts {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.related-acts img {
+  width: 220px;
+  height: 152px;
+  border-radius: 15px;
+}
+
+.section-1 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+}
+
+.section-2 {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.related-acts-name {
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: -12px;
+}
+
+.related-acts-date {
+  font-size: 13.9px;
+  color: #FF48AB;
+  font-weight: bold;
+}
+
+.related-acts-details,
+.related-acts-location {
+  margin-top: 5px;
+  font-size: 13.5px;
+  color: #393939f5;
+  text-align: justify;
+}
+
+.related-acts-location {
+  font-weight: bold;
+}
+
+.get-tickets {
+  font-size: 12px;
+  margin-top: 3px;
+  background-color: #000;
+  color: #FFF;
+  padding: 3px 12px;
+  border-radius: 50px;
+}

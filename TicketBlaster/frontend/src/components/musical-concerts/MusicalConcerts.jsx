@@ -9,7 +9,7 @@ export const MusicalConcerts = () => {
   const maxWordsPerRow = 10;
   const maxRows = 2;
 
-  const getMusicalConcerts = async () => {
+  const fetchMusicalConcerts = async () => {
     try {
       const res = await fetch("http://localhost:10003/api/v1/events");
       if (!res.ok) {
@@ -21,6 +21,10 @@ export const MusicalConcerts = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    fetchMusicalConcerts();
+  }, []);
 
   const truncateEventDetails = (details) => {
     const words = details.split(" ");
@@ -34,10 +38,6 @@ export const MusicalConcerts = () => {
   const loadMore = () => {
     setDisplayConcerts((displayConcerts) => displayConcerts + 6);
   };
-
-  useEffect(() => {
-    getMusicalConcerts();
-  }, []);
 
   return (
     <div className={style["musical-concerts"]}>

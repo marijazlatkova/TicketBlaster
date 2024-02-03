@@ -12,10 +12,10 @@ app.use(express.json());
 app.use(express.static("public"));
 
 app.post("/api/v1/events", storage.uploadImage, events.create);
-app.patch("/api/v1/events/:id", events.update);
-app.delete("/api/v1/events/:id", events.remove);
 app.get("/api/v1/events", events.getAll);
 app.get("/api/v1/events/:id", events.getOne);
+app.patch("/api/v1/events/:id", storage.uploadImage, events.update);
+app.delete("/api/v1/events/:id", events.remove);
 
 app.listen(process.env.PORTEVENTS, (err) => {
   err

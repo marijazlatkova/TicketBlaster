@@ -1,25 +1,7 @@
-const jwt = require("jsonwebtoken");
 const Event = require("../../../pkg/events");
-
-const authenticate = (req, res, next) => {
-  const token = req.headers.authorization?.split(' ')[1];
-  if (!token) {
-    return res.status(401).send("Unauthorized: No token provided");
-  }
-  try {
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decodedToken;
-    next();
-  } catch (err) {
-    return res.status(500).send("Forbidden: Invalid token");
-  }
-};
 
 const create = async (req, res) => {
   try {
-    if (req.user.role !== "administrator") {
-      return res.status(401).send("Unauthorized action!");
-    }
     if (req.file) {
       const filename = req.file.filename;
       req.body.image = filename;
@@ -32,7 +14,7 @@ const create = async (req, res) => {
       ...req.body,
       relatedActs: relatedActs
     });
-    return res.status(201).json(event);
+    return res.status(201).send(event);
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -40,10 +22,12 @@ const create = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const events = await Event.find().populate("relatedActs");
+    const { category } = req.query;
+    const query = category ? { category } : {};
+    const events = await Event.find(query).populate("relatedActs");
     events.sort((a, b) => new Date(a.date) - new Date(b.date));
     return res.status(200).json(events);
-  } catch(err) {
+  } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
 };
@@ -59,8 +43,9 @@ const getOne = async (req, res) => {
 
 const update = async (req, res) => {
   try {
-    if (req.user.role !== "administrator") {
-      return res.status(401).send("Unauthorized action!");
+    if (req.file) {
+      const filename = req.file.filename;
+      req.body.image = filename;
     }
     await Event.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -74,9 +59,6 @@ const update = async (req, res) => {
 
 const remove = async (req, res) => {
   try {
-    if (req.user.role !== "administrator") {
-      return res.status(401).send("Unauthorized action!");
-    }
     await Event.findByIdAndDelete(req.params.id);
     return res.status(204).send("Event removed successfully");
   } catch (err) {
@@ -85,9 +67,9 @@ const remove = async (req, res) => {
 };
 
 module.exports = {
-  create: [authenticate, create],
-  update: [authenticate, update],
-  remove: [authenticate, remove],
+  create,
   getAll,
-  getOne
+  getOne,
+  update,
+  remove
 };

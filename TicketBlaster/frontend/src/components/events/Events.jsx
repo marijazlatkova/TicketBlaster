@@ -8,7 +8,7 @@ export const Events = () => {
   const maxWordsPerRow = 10;
   const maxRows = 2;
 
-  const getEvents = async () => {
+  const fetchEvents = async () => {
     try {
       const res = await fetch("http://localhost:10003/api/v1/events");
       const events = await res.json();
@@ -18,6 +18,10 @@ export const Events = () => {
     }
   };
 
+  useEffect(() => {
+    fetchEvents();
+  }, []);
+
   const truncateEventDetails = (details) => {
     const words = details.split(" ");
     const truncatedWords = words.slice(0, maxWordsPerRow * maxRows);
@@ -26,10 +30,6 @@ export const Events = () => {
       (words.length > maxWordsPerRow * maxRows ? "..." : "")
     );
   };
-
-  useEffect(() => {
-    getEvents();
-  }, []);
 
   return (
     <div className={style["events"]}>

@@ -4,21 +4,23 @@ import * as jwtDecode from "jwt-decode";
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-  const [userRole, setUserRole] = useState("");
-  const [userId, setUserId] = useState("");
-  const [userImage, setUserImage] = useState("");
-  const [userName, setUserName] = useState("");
-  const [userEmail, setUserEmail] = useState("");
-  const [searchQuery, setSearchQuery] = useState("");
+  const [authState, setAuthState] = useState({
+    isLoggedIn: false,
+    userRole: "",
+    userId: "",
+    userImage: "",
+    userName: "",
+    userEmail: "",
+    searchQuery: "",
+  });
 
   const updateSearchQuery = (query) => {
-    setSearchQuery(query);
+    setAuthState({ ...authState, searchQuery: query });
     localStorage.setItem("searchQuery", query);
   };
 
   const updateUserImage = (newImage) => {
-    setUserImage(newImage);
+    setAuthState({ ...authState, userImage: newImage });
   };
 
   const fetchUserData = async () => {
@@ -26,10 +28,10 @@ export const AuthProvider = ({ children }) => {
       const token = localStorage.getItem("jwt");
       if (token) {
         const decodedToken = jwtDecode(token);
-        setUserRole(decodedToken.role);
-        setUserId(decodedToken.id);
+        const res = await fetch(
+          `http://localhost:10005/api/v1/users/${decodedToken.id}`
+        );
 
-        const res = await fetch(`/api/v1/users/${decodedToken.id}`);
         if (!res.ok) {
           throw new Error("Failed to fetch user data");
         }
@@ -37,9 +39,14 @@ export const AuthProvider = ({ children }) => {
         const data = await res.json();
         const user = data.user;
 
-        setUserImage(user.image);
-        setUserName(user.name);
-        setUserEmail(user.email);
+        setAuthState({
+          ...authState,
+          userRole: decodedToken.role,
+          userId: decodedToken.id,
+          userImage: user.image,
+          userName: user.name,
+          userEmail: user.email,
+        });
       }
     } catch (err) {
       console.log("Error fetching user data:", err);
@@ -47,39 +54,36 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logIn = async () => {
-    setIsLoggedIn(true);
+    setAuthState({ ...authState, isLoggedIn: true });
     await fetchUserData();
   };
 
   const logOut = () => {
     localStorage.removeItem("jwt");
-    setIsLoggedIn(false);
-    setUserRole("");
-    setUserId("");
-    setUserImage("");
-    setUserName("");
-    setUserEmail("");
+    setAuthState({
+      isLoggedIn: false,
+      userRole: "",
+      userId: "",
+      userImage: "",
+      userName: "",
+      userEmail: "",
+      searchQuery: "",
+    });
   };
 
   useEffect(() => {
     const token = localStorage.getItem("jwt");
     if (token) {
-      setIsLoggedIn(true);
+      setAuthState({ ...authState, isLoggedIn: true });
       fetchUserData();
     }
   }, []);
 
   const contextValue = {
-    isLoggedIn,
-    userRole,
-    userId,
-    userImage,
-    userName,
-    userEmail,
-    searchQuery,
+    ...authState,
     updateSearchQuery,
     updateUserImage,
-    setIsLoggedIn,
+    setIsLoggedIn: (value) => setAuthState({ ...authState, isLoggedIn: value }),
     logIn,
     logOut,
   };
@@ -87,8 +91,4 @@ export const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
-};
-
-export const useAuth = () => {
-  throw new Error("useAuth must be used within an AuthProvider");
 };

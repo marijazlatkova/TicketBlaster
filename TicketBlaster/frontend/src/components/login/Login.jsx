@@ -31,9 +31,9 @@ export const Login = () => {
       });
 
       if (res.ok) {
-        const { token } = await res.json();
-        localStorage.setItem("token", token);
-        navigate("/events");
+        const token = await res.token;
+        localStorage.setItem("jwt", token);
+        navigate("/");
       } else {
         console.log("An error has occurred");
       }

@@ -9,7 +9,7 @@ export const StandUpComedy = () => {
   const maxWordsPerRow = 10;
   const maxRows = 2;
 
-  const getStandUpComedies = async () => {
+  const fetchStandUpComedies = async () => {
     try {
       const res = await fetch("http://localhost:10003/api/v1/events");
       if (!res.ok) {
@@ -21,6 +21,10 @@ export const StandUpComedy = () => {
       console.log(err);
     }
   };
+
+  useEffect(() => {
+    fetchStandUpComedies();
+  }, []);
 
   const truncateEventDetails = (details) => {
     const words = details.split(" ");
@@ -34,10 +38,6 @@ export const StandUpComedy = () => {
   const loadMore = () => {
     setDisplayComedies((displayComedies) => displayComedies + 6);
   };
-
-  useEffect(() => {
-    getStandUpComedies();
-  }, []);
 
   return (
     <div className={style["stand-up-comedy"]}>

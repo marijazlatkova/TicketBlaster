@@ -7,6 +7,7 @@ import { ForgotPassword } from "./components/forgot-password/ForgotPassword";
 import { ResetPassword } from "./components/reset-password/ResetPassword";
 import { MusicalConcerts } from "./components/musical-concerts/MusicalConcerts";
 import { StandUpComedy } from "./components/stand-up-comedy/StandUpComedy";
+import { Event } from "./components/one-event/Event";
 import { SearchEvents } from "./components/search-events/SearchEvents";
 import { Footer } from "./components/footer/Footer";
 
@@ -23,6 +24,7 @@ export const App = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/musical-concerts" element={<MusicalConcerts />} />
         <Route path="/stand-up-comedy" element={<StandUpComedy />} />
+        <Route path="/event/:id" element={<Event />} />
       </Routes>
       <Footer />
     </div>
