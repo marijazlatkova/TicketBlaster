@@ -49,7 +49,7 @@ const login = async (req, res) => {
       payload.role = user.role;
     }
     const token = jwt.sign(payload, process.env.JWT_SECRET);
-    return res.status(200).send(token);
+    return res.status(200).json(token);
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }

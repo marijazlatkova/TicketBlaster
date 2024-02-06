@@ -9,6 +9,7 @@ import { MusicalConcerts } from "./components/musical-concerts/MusicalConcerts";
 import { StandUpComedy } from "./components/stand-up-comedy/StandUpComedy";
 import { Event } from "./components/one-event/Event";
 import { SearchEvents } from "./components/search-events/SearchEvents";
+import { ShoppingCart } from "./components/shopping-cart/ShoppingCart";
 import { Footer } from "./components/footer/Footer";
 
 export const App = () => {
@@ -25,6 +26,7 @@ export const App = () => {
         <Route path="/musical-concerts" element={<MusicalConcerts />} />
         <Route path="/stand-up-comedy" element={<StandUpComedy />} />
         <Route path="/event/:id" element={<Event />} />
+        <Route path="/shopping-cart" element={<ShoppingCart />} />
       </Routes>
       <Footer />
     </div>

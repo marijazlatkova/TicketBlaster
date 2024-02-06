@@ -1,89 +1,87 @@
-import { createContext, useState, useEffect } from "react";
-import * as jwtDecode from "jwt-decode";
+import { useState, useEffect, createContext } from "react";
+import { jwtDecode } from "jwt-decode";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [authState, setAuthState] = useState({
-    isLoggedIn: false,
-    userRole: "",
-    userId: "",
-    userImage: "",
-    userName: "",
-    userEmail: "",
-    searchQuery: "",
-  });
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userId, setUserId] = useState("");
+  const [userFullname, setUserFullname] = useState("");
+  const [userEmail, setUserEmail] = useState("");
+  const [userRole, setUserRole] = useState("");
+  const [userImage, setUserImage] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
 
   const updateSearchQuery = (query) => {
-    setAuthState({ ...authState, searchQuery: query });
+    setSearchQuery(query);
     localStorage.setItem("searchQuery", query);
   };
 
   const updateUserImage = (newImage) => {
-    setAuthState({ ...authState, userImage: newImage });
+    setUserImage(newImage);
   };
 
   const fetchUserData = async () => {
     try {
-      const token = localStorage.getItem("jwt");
+      const token = localStorage.getItem("token");
       if (token) {
         const decodedToken = jwtDecode(token);
+        setUserRole(decodedToken.role);
+        setUserId(decodedToken.id);
+
         const res = await fetch(
           `http://localhost:10005/api/v1/users/${decodedToken.id}`
         );
-
         if (!res.ok) {
           throw new Error("Failed to fetch user data");
         }
 
         const data = await res.json();
-        const user = data.user;
+        const user = data;
 
-        setAuthState({
-          ...authState,
-          userRole: decodedToken.role,
-          userId: decodedToken.id,
-          userImage: user.image,
-          userName: user.name,
-          userEmail: user.email,
-        });
+        setUserImage(user.image);
+        setUserFullname(user.fullname);
+        setUserEmail(user.email);
       }
     } catch (err) {
-      console.log("Error fetching user data:", err);
+      console.log(err);
     }
   };
 
   const logIn = async () => {
-    setAuthState({ ...authState, isLoggedIn: true });
+    setIsLoggedIn(true);
     await fetchUserData();
   };
 
   const logOut = () => {
-    localStorage.removeItem("jwt");
-    setAuthState({
-      isLoggedIn: false,
-      userRole: "",
-      userId: "",
-      userImage: "",
-      userName: "",
-      userEmail: "",
-      searchQuery: "",
-    });
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    setUserRole("");
+    setUserId("");
+    setUserImage("");
+    setUserFullname("");
+    setUserEmail("");
   };
 
   useEffect(() => {
-    const token = localStorage.getItem("jwt");
+    const token = localStorage.getItem("token");
     if (token) {
-      setAuthState({ ...authState, isLoggedIn: true });
+      setIsLoggedIn(true);
       fetchUserData();
     }
   }, []);
 
   const contextValue = {
-    ...authState,
+    isLoggedIn,
+    userRole,
+    userId,
+    userImage,
+    userFullname,
+    userEmail,
+    searchQuery,
     updateSearchQuery,
     updateUserImage,
-    setIsLoggedIn: (value) => setAuthState({ ...authState, isLoggedIn: value }),
+    setIsLoggedIn,
     logIn,
     logOut,
   };

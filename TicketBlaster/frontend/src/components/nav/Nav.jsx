@@ -8,7 +8,7 @@ import style from "./nav.module.css";
 export const Nav = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
-  const { updateSearchQuery } = useContext(AuthContext);
+  const { isLoggedIn, updateSearchQuery } = useContext(AuthContext);
 
   const handleSearchInputChange = (e) => {
     if (e.key === "Enter") {
@@ -46,12 +46,24 @@ export const Nav = () => {
           />
         </div>
         <ul>
-          <li className={style["login"]}>
-            <Link to="/login">Log In</Link>
-          </li>
-          <li className={style["create-account"]}>
-            <Link to="/create-account">Create Account</Link>
-          </li>
+          {isLoggedIn ? (
+            <div>
+              <li>
+                <Link to="/shopping-cart">
+                  <i className="fa fa-shopping-cart"></i>
+                </Link>
+              </li>
+            </div>
+          ) : (
+            <div>
+              <li className={style["login"]}>
+                <Link to="/login">Log In</Link>
+              </li>
+              <li className={style["create-account"]}>
+                <Link to="/create-account">Create Account</Link>
+              </li>
+            </div>
+          )}
         </ul>
       </div>
     </div>
