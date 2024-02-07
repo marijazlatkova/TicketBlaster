@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
+import style from "./shopping-cart.module.css";
+
 export const ShoppingCart = () => {
   const [tickets, setTickets] = useState([]);
   const { userId } = useContext(AuthContext);
@@ -50,51 +52,81 @@ export const ShoppingCart = () => {
   };
 
   return (
-    <div>
-      <h2>Shopping Cart</h2>
+    <div className={style["shopping-cart"]}>
+      <h2 className={style["title"]}>Shopping Cart</h2>
       {tickets.length === 0 ? (
         <p>Your shopping cart is empty.</p>
       ) : (
-        <div>
+        <>
           {tickets.map((t, i) => {
             const totalPrice = calculatePrice(t);
             return (
               <div key={i}>
-                {t.event && t.event.image && (
-                  <img
-                    src={`http://localhost:10002/images/${t.event.image}`}
-                    alt={t.event.name}
-                  />
-                )}
-                <h2>{t.event && t.event.name}</h2>
-                <p>
-                  {t.event &&
-                    new Date(t.event.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                </p>
-                <p>{t.event && t.event.location}</p>
-                <p>${totalPrice.toFixed(2)} USD</p>
-                <p>
-                  {t.quantity} x {t.event && t.event.price} USD
-                </p>
-                <button
-                  type="button"
-                  onClick={() => removeFromCart(userId, t._id)}
-                >
-                  Remove
-                </button>
-                {t.event && t.event._id && (
-                  <Link to={`/event/${t.event._id}`}>Back</Link>
-                )}
+                <div className={style["wrapper"]}>
+                  <div className={style["first-section"]}>
+                    {t.event && t.event.image && (
+                      <img
+                        className={style["event-image"]}
+                        src={`http://localhost:10002/images/${t.event.image}`}
+                        alt={t.event.name}
+                      />
+                    )}
+                    <div className={style["event-info"]}>
+                      <h2 className={style["event-name"]}>
+                        {t.event && t.event.name}
+                      </h2>
+                      <p className={style["event-date"]}>
+                        {t.event &&
+                          new Date(t.event.date).toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "long",
+                            day: "numeric",
+                          })}
+                      </p>
+                      <p className={style["event-location"]}>
+                        {t.event && t.event.location}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className={style["second-section"]}>
+                    <p className={style["event-price"]}>
+                      ${totalPrice.toFixed(2)} USD
+                    </p>
+                    <p className={style["event-total-price"]}>
+                      {t.quantity} x {t.event && t.event.price} USD
+                    </p>
+                    <button
+                      className={style["remove-button"]}
+                      type="button"
+                      onClick={() => removeFromCart(userId, t._id)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </div>
+                <br />
+                {i === tickets.length - 1 && <hr className={style["hr"]} />}
               </div>
             );
           })}
-        </div>
+          <div className={style["third-section"]}>
+            {tickets.length > 0 && (
+              <Link
+                className={style["back"]}
+                to={`/event/${tickets[0].event._id}`}
+              >
+                Back
+              </Link>
+            )}
+            {tickets.length > 0 && (
+              <Link className={style["checkout"]} to="/checkout">
+                Check Out
+              </Link>
+            )}
+          </div>
+        </>
       )}
-      {tickets.length > 0 && <Link to="/checkout">Check Out</Link>}
     </div>
   );
 };
