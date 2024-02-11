@@ -10,6 +10,7 @@ import { StandUpComedy } from "./components/stand-up-comedy/StandUpComedy";
 import { Event } from "./components/one-event/Event";
 import { SearchEvents } from "./components/search-events/SearchEvents";
 import { ShoppingCart } from "./components/shopping-cart/ShoppingCart";
+import { Checkout } from "./components/checkout/Checkout";
 import { Footer } from "./components/footer/Footer";
 
 export const App = () => {
@@ -27,6 +28,7 @@ export const App = () => {
         <Route path="/stand-up-comedy" element={<StandUpComedy />} />
         <Route path="/event/:id" element={<Event />} />
         <Route path="/shopping-cart" element={<ShoppingCart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
       <Footer />
     </div>

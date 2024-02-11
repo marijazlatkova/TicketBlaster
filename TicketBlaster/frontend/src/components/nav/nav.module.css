@@ -62,6 +62,10 @@ li {
   font-weight: bold;
 }
 
+.login-create-account-wrapper {
+  display: flex;
+}
+
 .login {
   padding: 6px 20px;
   background-color: #FF48AB;

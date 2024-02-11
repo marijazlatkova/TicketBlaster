@@ -33,7 +33,7 @@ const getCartTickets = async (req, res) => {
       path: "tickets.event",
       select: "-relatedActs"
     });
-    return res.status(200).send({ tickets: cart ? cart.tickets : [] });
+    return res.status(200).json({ tickets: cart ? cart.tickets : [] });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -63,7 +63,7 @@ const getPurchasedTicketsHistory = async (req, res) => {
   try {
     const userId = req.params.userId;
     const history = await PurchaseHistory.findOne({ user: userId }).populate("ticketsHistory.event");
-    return res.status(200).send({ purchasedTickets: history ? history.ticketsHistory : [] });
+    return res.status(200).json({ purchasedTickets: history ? history.ticketsHistory : [] });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -77,7 +77,7 @@ const getAllTicketsHistoryForUser = async (req, res) => {
       path: "ticketsHistory.event",
       select: "-relatedActs"
     });
-    return res.status(200).send({ allTicketsHistory: history });
+    return res.status(200).json({ allTicketsHistory: history });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }

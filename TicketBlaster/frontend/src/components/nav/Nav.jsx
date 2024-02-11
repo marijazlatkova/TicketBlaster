@@ -55,7 +55,7 @@ export const Nav = () => {
               </li>
             </div>
           ) : (
-            <div>
+            <div className={style["login-create-account-wrapper"]}>
               <li className={style["login"]}>
                 <Link to="/login">Log In</Link>
               </li>
