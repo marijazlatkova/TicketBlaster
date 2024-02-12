@@ -3,6 +3,8 @@ import { useState, useEffect, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
+import style from "./checkout.module.css";
+
 export const Checkout = () => {
   const navigate = useNavigate();
   const { userId } = useContext(AuthContext);
@@ -98,86 +100,104 @@ export const Checkout = () => {
   };
 
   return (
-    <div>
-      <h2>Checkout</h2>
-      <div>
+    <div className={style["checkout"]}>
+      <h2 className={style["title"]}>Checkout</h2>
+      <div className={style["first-section"]}>
         {tickets &&
           tickets.map((t, i) => {
             const totalPrice = calculatePrice(t);
             return (
-              <div key={i}>
-                <img
-                  src={`http://localhost:10002/images/${t.event.image}`}
-                  alt={t.event.name}
-                />
-                <div>
-                  <h2>{t.event.name}</h2>
-                  <p>
-                    {new Date(t.event.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <p>{t.event.location}</p>
-                </div>
-                <div>
-                  <p>${totalPrice.toFixed(2)} USD</p>
-                  <div>
-                    {t.quantity} x {t.event.price} USD
+              <div key={i} className={style["content"]}>
+                <div className={style["event-wrapper"]}>
+                  <img
+                    className={style["event-image"]}
+                    src={`http://localhost:10002/images/${t.event.image}`}
+                    alt={t.event.name}
+                  />
+                  <div className={style["name-date-location-wrapper"]}>
+                    <h2 className={style["event-name"]}>{t.event.name}</h2>
+                    <p className={style["event-date"]}>
+                      {new Date(t.event.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                    <p className={style["event-location"]}>
+                      {t.event.location}
+                    </p>
                   </div>
+                </div>
+                <div className={style["price-wrapper"]}>
+                  <p className={style["event-price"]}>
+                    ${totalPrice.toFixed(2)} USD
+                  </p>
+                  <p className={style["event-price-calculated"]}>
+                    {t.quantity} x {t.event.price} USD
+                  </p>
                 </div>
               </div>
             );
           })}
-        <div>
-          <p>Total:</p>
-          <p>${calculateAmount().toFixed(2)} USD</p>
+        <div className={style["second-section"]}>
+          <form>
+            <div>
+              <label>Full Name</label>
+              <br />
+              <input
+                type="text"
+                value={fullName}
+                onChange={(e) => setFullName(e.target.value)}
+              />
+              {errors.fullName && <p>{errors.fullName}</p>}
+            </div>
+            <div>
+              <label>Card No.</label>
+              <br />
+              <input
+                type="text"
+                value={cardNo}
+                onChange={(e) => setCardNo(e.target.value)}
+              />
+              {errors.cardNo && <p>{errors.cardNo}</p>}
+            </div>
+            <div>
+              <label>Expires</label>
+              <br />
+              <input
+                type="month"
+                value={expires}
+                onChange={(e) => setExpires(e.target.value)}
+              />
+              {errors.expires && <p>{errors.expires}</p>}
+            </div>
+            <div>
+              <label>Pin</label>
+              <br />
+              <input
+                type="text"
+                value={pin}
+                onChange={(e) => setPin(e.target.value)}
+              />
+              {errors.pin && <p>{errors.pin}</p>}
+            </div>
+          </form>
         </div>
       </div>
-      <div>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <label>Full Name</label>
-            <input
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-            />
-            {errors.fullName && <p>{errors.fullName}</p>}
-          </div>
-          <div>
-            <label>Card No.</label>
-            <input
-              type="text"
-              value={cardNo}
-              onChange={(e) => setCardNo(e.target.value)}
-            />
-            {errors.cardNo && <p>{errors.cardNo}</p>}
-          </div>
-          <div>
-            <label>Expires</label>
-            <input
-              type="month"
-              value={expires}
-              onChange={(e) => setExpires(e.target.value)}
-            />
-            {errors.expires && <p>{errors.expires}</p>}
-          </div>
-          <div>
-            <label>Pin</label>
-            <input
-              type="text"
-              value={pin}
-              onChange={(e) => setPin(e.target.value)}
-            />
-            {errors.pin && <p>{errors.pin}</p>}
-          </div>
-          <div>
-            <Link to="/shopping-cart">Back</Link>
-          </div>
-          <button type="submit">Pay Now</button>
-        </form>
+      <hr className={style["hr"]} />
+      <div className={style["total-price-wrapper"]}>
+        <p className={style["total"]}>Total:</p>
+        <p className={style["total-price"]}>
+          ${calculateAmount().toFixed(2)} USD
+        </p>
+      </div>
+      <div className={style["buttons-wrapper"]}>
+        <Link className={style["back"]} to="/shopping-cart">
+          Back
+        </Link>
+        <button className={style["pay-now"]} onClick={handleSubmit}>
+          Pay Now
+        </button>
       </div>
     </div>
   );
