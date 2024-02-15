@@ -32,17 +32,27 @@ export const Checkout = () => {
   }, [userId]);
 
   const processPayment = async () => {
-    const userData = { userId };
     try {
-      await fetch("http://localhost:10004/api/v1/ecommerce/process-payment/", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userData }),
-      });
+      const userData = {
+        user: userId,
+      };
+      const res = await fetch(
+        "http://localhost:10004/api/v1/ecommerce/process-payment/",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+      if (res.ok) {
+        console.log("Payment processed successfully!");
+      } else {
+        console.log("Payment failed:", res.status);
+      }
     } catch (err) {
-      console.log(err);
+      console.log("Error processing payment:", err);
     }
   };
 

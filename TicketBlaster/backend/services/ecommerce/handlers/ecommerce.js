@@ -1,5 +1,5 @@
 const ShoppingCart = require("../../../pkg/ecommerce/cart");
-const PurchaseHistory = require("../../../pkg/ecommerce/ticketsHistory");
+const Purchase = require("../../../pkg/ecommerce/ticketsHistory")
 const Event = require("../../../pkg/events").model("Event");
 
 const addToCart = async (req, res) => {
@@ -39,12 +39,16 @@ const getCartTickets = async (req, res) => {
   }
 };
 
-const processPaymentAndAddToHistory = async (req, res) => {
+const processPayment = async (req, res) => {
   try {
     const { user } = req.body;
-    const cart = await ShoppingCart.findOne({ user }).populate("tickets.event");
+    const cart = await ShoppingCart.findOne({ user }).populate({
+      model: Event,
+      path: "tickets.event",
+      select: "-relatedActs"
+    });
     if (cart && cart.tickets.length > 0) {
-      const history = await PurchaseHistory.create({
+      const history = await Purchase.create({
         user: user,
         ticketsHistory: cart.tickets.map(ticket => ({ event: ticket.event, quantity: ticket.quantity })),
       });
@@ -59,20 +63,20 @@ const processPaymentAndAddToHistory = async (req, res) => {
   }
 };
 
-const getPurchasedTicketsHistory = async (req, res) => {
+const getPurchasedTickets = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const history = await PurchaseHistory.findOne({ user: userId }).populate("ticketsHistory.event");
-    return res.status(200).json({ purchasedTickets: history ? history.ticketsHistory : [] });
+    const history = await Purchase.findOne({ user: userId }).populate("ticketsHistory.event");
+    return res.status(200).json({ tickets: history.ticketsHistory });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
 };
 
-const getAllTicketsHistoryForUser = async (req, res) => {
+const getAllTickets = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const history = await PurchaseHistory.find({ user: userId }).populate({
+    const history = await Purchase.find({ user: userId }).populate({
       model: Event,
       path: "ticketsHistory.event",
       select: "-relatedActs"
@@ -105,8 +109,8 @@ const removeFromCart = async (req, res) => {
 module.exports = {
   addToCart,
   getCartTickets,
-  processPaymentAndAddToHistory,
-  getPurchasedTicketsHistory,
-  getAllTicketsHistoryForUser,
+  processPayment,
+  getPurchasedTickets,
+  getAllTickets,
   removeFromCart
 };

@@ -11,10 +11,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.post("/api/v1/ecommerce/add-to-cart", ecommerce.addToCart);
-app.post("/api/v1/ecommerce/process-payment", ecommerce.processPaymentAndAddToHistory);
+app.post("/api/v1/ecommerce/process-payment", ecommerce.processPayment);
 app.get("/api/v1/ecommerce/cart-tickets/:userId", ecommerce.getCartTickets);
-app.get("/api/v1/ecommerce/purchased-tickets/:userId", ecommerce.getPurchasedTicketsHistory);
-app.get("/api/v1/ecommerce/tickets-history/:userId", ecommerce.getAllTicketsHistoryForUser);
+app.get("/api/v1/ecommerce/purchased-tickets/:userId", ecommerce.getPurchasedTickets);
+app.get("/api/v1/ecommerce/tickets-history/:userId", ecommerce.getAllTickets);
 app.delete("/api/v1/ecommerce/remove-from-cart/:userId/:ticketId", ecommerce.removeFromCart);
 
 app.listen(process.env.PORTECOMMERCE, (err) => {

@@ -2,10 +2,10 @@ import { useState, useEffect, useContext } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-import logo from "../logo/logo-black.png";
-import style from "./event.module.css";
+import logo from "../logo+qr/logo-black.png";
+import style from "./event-details.module.css";
 
-export const Event = () => {
+export const EventDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { isLoggedIn, userId } = useContext(AuthContext);

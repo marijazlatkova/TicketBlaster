@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-import logo from "../logo/logo.png";
+import logo from "../logo+qr/logo.png";
 import style from "./nav.module.css";
 
 export const Nav = () => {

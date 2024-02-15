@@ -7,17 +7,15 @@ import style from "./shopping-cart.module.css";
 export const ShoppingCart = () => {
   const [tickets, setTickets] = useState([]);
   const { userId } = useContext(AuthContext);
+  console.log("USERID", userId);
 
   const fetchUserTickets = async () => {
     try {
       const res = await fetch(
         `http://localhost:10004/api/v1/ecommerce/cart-tickets/${userId}`
       );
-      if (!res.ok) {
-        throw new Error("Failed to fetch tickets");
-      }
-      const resData = await res.json();
-      setTickets(resData.tickets);
+      const data = await res.json();
+      setTickets(data.tickets);
     } catch (err) {
       console.log(err);
     }

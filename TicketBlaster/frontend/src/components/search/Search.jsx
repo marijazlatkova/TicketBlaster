@@ -2,16 +2,16 @@ import { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
-import style from "./search-events.module.css";
+import style from "./search.module.css";
 
-export const SearchEvents = () => {
+export const Search = () => {
   const { searchQuery } = useContext(AuthContext);
   const [events, setEvents] = useState([]);
   const maxWordsPerRow = 10;
   const maxRows = 7;
 
   useEffect(() => {
-    const searchedEvents = async () => {
+    const searchEvents = async () => {
       try {
         const res = await fetch("http://localhost:10003/api/v1/events");
         if (!res.ok) {
@@ -35,7 +35,7 @@ export const SearchEvents = () => {
       }
     };
 
-    searchedEvents();
+    searchEvents();
   }, [searchQuery]);
 
   const truncateEventDetails = (details) => {
