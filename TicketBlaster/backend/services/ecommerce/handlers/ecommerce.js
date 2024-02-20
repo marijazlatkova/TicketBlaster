@@ -1,5 +1,5 @@
 const ShoppingCart = require("../../../pkg/ecommerce/cart");
-const Purchase = require("../../../pkg/ecommerce/ticketsHistory")
+const TicketsHistory = require("../../../pkg/ecommerce/ticketsHistory")
 const Event = require("../../../pkg/events").model("Event");
 
 const addToCart = async (req, res) => {
@@ -48,7 +48,7 @@ const processPayment = async (req, res) => {
       select: "-relatedActs"
     });
     if (cart && cart.tickets.length > 0) {
-      const history = await Purchase.create({
+      const history = await TicketsHistory.create({
         user: user,
         ticketsHistory: cart.tickets.map(ticket => ({ event: ticket.event, quantity: ticket.quantity })),
       });
@@ -66,22 +66,26 @@ const processPayment = async (req, res) => {
 const getPurchasedTickets = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const history = await Purchase.findOne({ user: userId }).populate("ticketsHistory.event");
-    return res.status(200).json({ tickets: history.ticketsHistory });
+    const history = await TicketsHistory.findOne({ user: userId }).populate({
+      path: "ticketsHistory.event",
+      model: "Event",
+      select: "-relatedActs"
+    });
+    return res.status(200).json({ tickets: history ? history.ticketsHistory : [] });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
 };
 
-const getAllTickets = async (req, res) => {
+const getAllTicketsHistory = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const history = await Purchase.find({ user: userId }).populate({
-      model: Event,
+    const history = await TicketsHistory.find({ user: userId }).populate({
       path: "ticketsHistory.event",
+      model: "Event",
       select: "-relatedActs"
     });
-    return res.status(200).json({ allTicketsHistory: history });
+    return res.status(200).json({ tickets: history });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -97,7 +101,7 @@ const removeFromCart = async (req, res) => {
       { new: true }
     );
     if (!cart) {
-      return res.status(404).send("User not found");
+      return res.status(404).send("No tickets found in cart!");
     }
     await cart.save();
     return res.status(200).send("Ticket removed from cart successfully");
@@ -111,6 +115,6 @@ module.exports = {
   getCartTickets,
   processPayment,
   getPurchasedTickets,
-  getAllTickets,
+  getAllTicketsHistory,
   removeFromCart
 };

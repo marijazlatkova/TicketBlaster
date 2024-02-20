@@ -76,6 +76,16 @@ export const Purchase = () => {
                   Print
                 </button>
               </div>
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
+              <br />
             </div>
           );
         })}

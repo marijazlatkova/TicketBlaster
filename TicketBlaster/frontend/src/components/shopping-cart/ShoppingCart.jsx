@@ -7,7 +7,6 @@ import style from "./shopping-cart.module.css";
 export const ShoppingCart = () => {
   const [tickets, setTickets] = useState([]);
   const { userId } = useContext(AuthContext);
-  console.log("USERID", userId);
 
   const fetchUserTickets = async () => {
     try {
