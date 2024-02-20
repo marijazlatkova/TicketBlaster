@@ -3,6 +3,7 @@ import { AuthContext } from "../../context/AuthContext";
 
 import logo from "../logo+qr/logo-black.png";
 import qr from "../logo+qr/qr.png";
+import style from "./purchase.module.css";
 
 export const Purchase = () => {
   const { userId } = useContext(AuthContext);
@@ -40,78 +41,97 @@ export const Purchase = () => {
   };
 
   return (
-    <>
-      <h1>Thank you for your purchase!</h1>
+    <div className={style["purchase"]}>
+      <h2 className={style["title"]}>Thank you for your purchase!</h2>
       {tickets &&
         tickets.map((t, i) => {
           const totalPrice = calculatePrice(t);
           return (
             <div key={i}>
-              <img
-                src={`http://localhost:10002/images/${t.event.image}`}
-                alt={t.event.name}
-              />
-              <div>
-                <h2>{t.event.name}</h2>
-                <p>
-                  {new Date(t.event.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "long",
-                    day: "numeric",
-                  })}
-                </p>
-                <p>{t.event.location}</p>
+              <div className={style["wrapper"]}>
+                <div className={style["first-section"]}>
+                  <img
+                    className={style["event-image"]}
+                    src={`http://localhost:10002/images/${t.event.image}`}
+                    alt={t.event.name}
+                  />
+                  <div className={style["event-info"]}>
+                    <h2 className={style["event-name"]}>{t.event.name}</h2>
+                    <p className={style["event-date"]}>
+                      {new Date(t.event.date).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}
+                    </p>
+                    <p className={style["event-location"]}>
+                      {t.event.location}
+                    </p>
+                  </div>
+                </div>
+
+                <div className={style["second-section"]}>
+                  <div className={style["price-wrapper"]}>
+                    <div>
+                      <p className={style["event-price"]}>
+                        ${totalPrice.toFixed(2)} USD
+                      </p>
+                      <p className={style["event-total-price"]}>
+                        {t.quantity} x {t.event.price} USD
+                      </p>
+                    </div>
+                    <button
+                      className={style["print-button"]}
+                      onClick={() => {
+                        setPopup(true);
+                        setPopupTicket(t);
+                      }}
+                    >
+                      Print
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div>
-                <p>${totalPrice.toFixed(2)}</p>
-                <p>
-                  {t.quantity} x {t.event.price} USD
-                </p>
-                <button
-                  onClick={() => {
-                    setPopup(true);
-                    setPopupTicket(t);
-                  }}
-                >
-                  Print
-                </button>
-              </div>
               <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
-              <br />
+              {i === tickets.length - 1 && <hr className={style["hr"]} />}
             </div>
           );
         })}
       {popup && popupTicket && (
-        <div onClick={closePopup}>
-          <div>
-            <img src={logo} alt="logo" />
-            <img
-              src={`http://localhost:10002/images/${popupTicket.event.image}`}
-              alt={popupTicket.event.name}
-            />
+        <div className={style["popup-wrapper"]}>
+          <img className={style["logo"]} src={logo} alt="logo" />
+          <button
+            className={style["close-button"]}
+            type="button"
+            onClick={closePopup}
+          >
+            x
+          </button>
+          <img
+            className={style["popup-image"]}
+            src={`http://localhost:10002/images/${popupTicket.event.image}`}
+            alt={popupTicket.event.name}
+          />
+          <div className={style["popup-info"]}>
             <div>
-              <p>{popupTicket.event.name}</p>
-              <p>
+              <p className={style["popup-name"]}>{popupTicket.event.name}</p>
+              <p className={style["popup-date"]}>
                 {new Date(popupTicket.event.date).toLocaleDateString("en-US", {
                   year: "numeric",
                   month: "long",
                   day: "numeric",
                 })}
               </p>
-              <p>{popupTicket.event.location}</p>
-              <img src={qr} alt="scan-qr-code" />
+              <p className={style["popup-location"]}>
+                {popupTicket.event.location}
+              </p>
+            </div>
+            <div>
+              <img className={style["qr-code"]} src={qr} alt="scan-qr-code" />
             </div>
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };

@@ -128,7 +128,7 @@ export const EventDetails = () => {
       </div>
 
       {isPopUpVisible && (
-        <div className={style["pop-up-wrapper"]}>
+        <div className={style["popup-wrapper"]}>
           <img className={style["logo"]} src={logo} alt="logo" />
           <button
             className={style["close-button"]}
