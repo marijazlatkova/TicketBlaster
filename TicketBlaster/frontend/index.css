@@ -24,8 +24,12 @@ li {
   list-style: none;
 }
 
-.fa-shopping-cart {
+.fa-shopping-cart,
+.fa-user {
   color: #EE47A0;
-  font-size: 24px;
+  font-size: 22px;
+}
+
+.fa-user {
   margin-right: 250px;
 }

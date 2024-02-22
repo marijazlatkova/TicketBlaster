@@ -52,7 +52,7 @@ export const ShoppingCart = () => {
     <div className={style["shopping-cart"]}>
       <h2 className={style["title"]}>Shopping Cart</h2>
       {tickets.length === 0 ? (
-        <p>Your shopping cart is empty.</p>
+        <p className={style["empty-cart"]}>No items in cart</p>
       ) : (
         <>
           {tickets.map((t, i) => {

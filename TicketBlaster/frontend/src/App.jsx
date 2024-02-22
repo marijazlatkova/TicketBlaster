@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Nav } from "./components/nav/Nav";
-import { Events } from "./components/events/Events";
+import { EventsHero } from "./components/events-hero/EventsHero";
 import { Search } from "./components/search/Search";
 import { CreateAccount } from "./components/create-account/CreateAccount";
 import { Login } from "./components/login/Login";
@@ -16,11 +16,11 @@ import { Footer } from "./components/footer/Footer";
 
 export const App = () => {
   return (
-    <div id="app">
+    <div>
       <Nav />
       <Routes>
-        <Route path="/" element={<Events />} />
-        <Route path="/events" element={<Search />} />
+        <Route path="/" element={<EventsHero />} />
+        <Route path="/search-events" element={<Search />} />
         <Route path="/create-account" element={<CreateAccount />} />
         <Route path="/login" element={<Login />} />
         <Route path="/forgot-password" element={<ForgotPassword />} />

@@ -8,12 +8,12 @@ import style from "./nav.module.css";
 export const Nav = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
-  const { isLoggedIn, updateSearchQuery } = useContext(AuthContext);
+  const { isLoggedIn, handleSearchQuery } = useContext(AuthContext);
 
   const handleSearchInputChange = (e) => {
     if (e.key === "Enter") {
-      navigate("/events");
-      updateSearchQuery(searchInput);
+      navigate("/search-events");
+      handleSearchQuery(searchInput);
       setSearchInput("");
     }
   };
@@ -47,10 +47,15 @@ export const Nav = () => {
         </div>
         <ul>
           {isLoggedIn ? (
-            <div>
+            <div className={style["shopping-cart-user-details-wrapper"]}>
               <li>
                 <Link to="/shopping-cart">
                   <i className="fa fa-shopping-cart"></i>
+                </Link>
+              </li>
+              <li>
+                <Link to="/user-details">
+                  <i className="fa fa-user"></i>
                 </Link>
               </li>
             </div>

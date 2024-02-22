@@ -22,4 +22,4 @@ const ticketHistorySchema = new mongoose.Schema({
   ]
 });
 
-module.exports = mongoose.model("TicketsHistory", ticketHistorySchema, "ticketsHistoryEcommerce");
+module.exports = mongoose.model("TicketsHistory", ticketHistorySchema, "ticketsHistory");

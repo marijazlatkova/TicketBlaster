@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-import style from "./events.module.css";
+import style from "./events-hero.module.css";
 
-export const Events = () => {
+export const EventsHero = () => {
   const [events, setEvents] = useState([]);
   const maxWordsPerRow = 10;
   const maxRows = 2;

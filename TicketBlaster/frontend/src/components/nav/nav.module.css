@@ -1,6 +1,5 @@
 a {
   color: #FFF;
-  text-decoration: none;
 }
 
 .nav {
@@ -87,4 +86,8 @@ li {
 .musical-concerts a:focus,
 .stand-up-comedy a:focus {
   color: #FF48AB;
+}
+
+.shopping-cart-user-details-wrapper {
+  display: flex;
 }

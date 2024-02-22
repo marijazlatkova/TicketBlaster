@@ -79,6 +79,13 @@
   width: 100%;
 }
 
+.empty-cart {
+  margin-top: 20px;
+  color: #969696e5;
+  font-size: 15px;
+  font-weight: bold;
+}
+
 .third-section {
   margin-top: auto;
   display: flex;
