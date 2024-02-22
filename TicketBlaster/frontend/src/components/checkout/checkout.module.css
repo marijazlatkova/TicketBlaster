@@ -10,28 +10,32 @@
   margin-bottom: 30px;
 }
 
+.section-container {
+  display: flex;
+  gap: 150px;
+}
+
 .first-section {
   display: flex;
-  flex-direction: row;
-  align-items: start;
+  flex-direction: column;
   margin-bottom: 25px;
+  gap: 30px;
 }
 
 .content {
-  width: 55%;
   display: flex;
   align-items: center;
-  gap: 40px;
+  gap: 100px;
 }
 
 .event-wrapper {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 15px;
+  gap: 30px;
 }
 
 .name-date-location-wrapper {
+  width: 200%;
   display: flex;
   flex-direction: column;
   gap: 4px;
@@ -97,21 +101,20 @@
 }
 
 .hr {
-  width: 44%;
+  width: 50%;
   position: relative;
-  bottom: 200px;
-  border: 0;
+  bottom: 10px;
   height: 1px;
   background: #ccc;
-  margin-bottom: 20px;
 }
 
 .total-price-wrapper {
   position: relative;
-  bottom: 200px;
-  width: 44%;
+  width: 50%;
+  top: 10px;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 100px;
 }
 
 .buttons-wrapper {

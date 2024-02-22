@@ -35,7 +35,7 @@ export const StandUpComedy = () => {
     );
   };
 
-  const loadMore = () => {
+  const loadMoreComedies = () => {
     setDisplayComedies((displayComedies) => displayComedies + 6);
   };
 
@@ -83,7 +83,10 @@ export const StandUpComedy = () => {
             ))}
       </div>
       {comedies.length > displayComedies && (
-        <Link className={style["load-more-comedies"]} onClick={loadMore}>
+        <Link
+          className={style["load-more-comedies"]}
+          onClick={loadMoreComedies}
+        >
           Load More Stand-Up Comedy Shows
         </Link>
       )}

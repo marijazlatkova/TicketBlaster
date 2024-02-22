@@ -35,7 +35,7 @@ export const MusicalConcerts = () => {
     );
   };
 
-  const loadMore = () => {
+  const loadMoreConcerts = () => {
     setDisplayConcerts((displayConcerts) => displayConcerts + 6);
   };
 
@@ -83,7 +83,10 @@ export const MusicalConcerts = () => {
             ))}
       </div>
       {concerts.length > displayConcerts && (
-        <Link className={style["load-more-concerts"]} onClick={loadMore}>
+        <Link
+          className={style["load-more-concerts"]}
+          onClick={loadMoreConcerts}
+        >
           Load More Musical Concerts
         </Link>
       )}

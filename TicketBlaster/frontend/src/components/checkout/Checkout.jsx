@@ -112,43 +112,45 @@ export const Checkout = () => {
   return (
     <div className={style["checkout"]}>
       <h2 className={style["title"]}>Checkout</h2>
-      <div className={style["first-section"]}>
-        {tickets &&
-          tickets.map((t, i) => {
-            const totalPrice = calculatePrice(t);
-            return (
-              <div key={i} className={style["content"]}>
-                <div className={style["event-wrapper"]}>
-                  <img
-                    className={style["event-image"]}
-                    src={`http://localhost:10002/images/${t.event.image}`}
-                    alt={t.event.name}
-                  />
-                  <div className={style["name-date-location-wrapper"]}>
-                    <h2 className={style["event-name"]}>{t.event.name}</h2>
-                    <p className={style["event-date"]}>
-                      {new Date(t.event.date).toLocaleDateString("en-US", {
-                        year: "numeric",
-                        month: "long",
-                        day: "numeric",
-                      })}
+      <div className={style["section-container"]}>
+        <div className={style["first-section"]}>
+          {tickets &&
+            tickets.map((t, i) => {
+              const totalPrice = calculatePrice(t);
+              return (
+                <div key={i} className={style["content"]}>
+                  <div className={style["event-wrapper"]}>
+                    <img
+                      className={style["event-image"]}
+                      src={`http://localhost:10002/images/${t.event.image}`}
+                      alt={t.event.name}
+                    />
+                    <div className={style["name-date-location-wrapper"]}>
+                      <h2 className={style["event-name"]}>{t.event.name}</h2>
+                      <p className={style["event-date"]}>
+                        {new Date(t.event.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                      <p className={style["event-location"]}>
+                        {t.event.location}
+                      </p>
+                    </div>
+                  </div>
+                  <div className={style["price-wrapper"]}>
+                    <p className={style["event-price"]}>
+                      ${totalPrice.toFixed(2)} USD
                     </p>
-                    <p className={style["event-location"]}>
-                      {t.event.location}
+                    <p className={style["event-price-calculated"]}>
+                      {t.quantity} x {t.event.price} USD
                     </p>
                   </div>
                 </div>
-                <div className={style["price-wrapper"]}>
-                  <p className={style["event-price"]}>
-                    ${totalPrice.toFixed(2)} USD
-                  </p>
-                  <p className={style["event-price-calculated"]}>
-                    {t.quantity} x {t.event.price} USD
-                  </p>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+        </div>
         <div className={style["second-section"]}>
           <form>
             <div>
