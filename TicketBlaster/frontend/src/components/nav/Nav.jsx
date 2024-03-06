@@ -54,7 +54,7 @@ export const Nav = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/user-details">
+                <Link to="/user/user-details">
                   <i className="fa fa-user"></i>
                 </Link>
               </li>
