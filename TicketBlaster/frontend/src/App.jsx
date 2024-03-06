@@ -26,12 +26,12 @@ export const App = () => {
         <Route path="/" element={<EventsHero />} />
         <Route path="/search-events" element={<Search />} />
         {!isLoggedIn && (
-          <div>
+          <>
             <Route path="/create-account" element={<CreateAccount />} />
             <Route path="/login" element={<Login />} />
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
-          </div>
+          </>
         )}
         <Route path="/musical-concerts" element={<MusicalConcerts />} />
         <Route path="/stand-up-comedy" element={<StandUpComedy />} />
@@ -41,11 +41,11 @@ export const App = () => {
         <Route path="/purchase" element={<Purchase />} />
         <Route path="/user/" element={<UserAdmin />}>
           {isLoggedIn && userRole === "administrator" && (
-            <div>
+            <>
               <Route path="create-event" />
               <Route path="events" />
               <Route path="users" />
-            </div>
+            </>
           )}
           <Route path="tickets-history" />
           <Route path="user-details" />
