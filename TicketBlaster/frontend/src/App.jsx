@@ -16,6 +16,7 @@ import { Checkout } from "./components/checkout/Checkout";
 import { Purchase } from "./components/purchase/Purchase";
 import { UserAdmin } from "./components/user-admin/UserAdmin";
 import { CreateEvent } from "./components/component-parts/create-event/CreateEvent";
+import { Events } from "./components/component-parts/events/Events";
 import { Footer } from "./components/footer/Footer";
 
 export const App = () => {
@@ -44,7 +45,7 @@ export const App = () => {
           {isLoggedIn && userRole === "administrator" && (
             <>
               <Route path="create-event" element={<CreateEvent />} />
-              <Route path="events" />
+              <Route path="events" element={<Events />} />
               <Route path="users" />
             </>
           )}
