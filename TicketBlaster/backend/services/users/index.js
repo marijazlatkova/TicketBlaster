@@ -15,7 +15,7 @@ app.use(express.static("public"));
 app.get("/api/v1/users", users.getAll);
 app.get("/api/v1/users/:id", users.getOne);
 app.delete("/api/v1/users/:id", users.remove);
-app.patch("/api/v1/users/image/:id", storage.uploadImage, users.update);
+app.patch("/api/v1/users/:id", storage.uploadImage, users.update);
 app.patch("/api/v1/users/role/:id", users.upgradeDegrade);
 app.patch("/api/v1/users/password/:id", users.changePassword);
 
