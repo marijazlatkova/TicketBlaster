@@ -52,7 +52,7 @@ export const Events = () => {
   return (
     <div>
       {events.map((event) => (
-        <div key={event_id}>
+        <div key={event._id}>
           <div>
             <img
               width="200px"
