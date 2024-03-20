@@ -97,7 +97,7 @@ export const Purchase = () => {
             </div>
           );
         })}
-      {popupTicket && (
+      {popup && popupTicket && (
         <div className={style["popup-wrapper"]}>
           <img className={style["logo"]} src={logo} alt="logo" />
           <button

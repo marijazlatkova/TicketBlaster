@@ -67,7 +67,7 @@ export const TicketsHistory = () => {
           ))}
         </div>
       )}
-      {popupTicket && (
+      {popup && popupTicket && (
         <div>
           <img src={logo} alt="logo" />
           <button type="button" onClick={closePopup}>
@@ -95,13 +95,6 @@ export const TicketsHistory = () => {
           </div>
         </div>
       )}
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
     </div>
   );
 };
