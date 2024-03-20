@@ -1,13 +1,13 @@
-const ShoppingCart = require("../../../pkg/ecommerce/cart");
-const TicketsHistory = require("../../../pkg/ecommerce/ticketsHistory")
+const Cart = require("../../../pkg/ecommerce/cart");
+const History = require("../../../pkg/ecommerce/ticketsHistory")
 const Event = require("../../../pkg/events").model("Event");
 
 const addToCart = async (req, res) => {
   try {
     const { user, tickets } = req.body;
-    let cart = await ShoppingCart.findOne({ user });
+    let cart = await Cart.findOne({ user });
     if (!cart) {
-      cart = await ShoppingCart.create({ user, tickets });
+      cart = await Cart.create({ user, tickets });
       return res.status(201).json({ message: "New cart created", tickets: cart.tickets });
     }
     tickets.forEach(newTicket => {
@@ -28,12 +28,13 @@ const addToCart = async (req, res) => {
 const getCartTickets = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const cart = await ShoppingCart.findOne({ user: userId }).populate({
+    const tickets = await Cart.findOne({ user: userId }).populate({
       model: Event,
       path: "tickets.event",
       select: "-relatedActs"
     });
-    return res.status(200).json({ tickets: cart ? cart.tickets : [] });
+    const cart = tickets.sort((a, b) => b.timestamps - a.timestamps);
+    return res.status(200).json({ tickets: cart });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -42,18 +43,18 @@ const getCartTickets = async (req, res) => {
 const processPayment = async (req, res) => {
   try {
     const { user } = req.body;
-    const cart = await ShoppingCart.findOne({ user }).populate({
+    const cart = await Cart.findOne({ user }).populate({
       model: Event,
       path: "tickets.event",
       select: "-relatedActs"
     });
     if (cart && cart.tickets.length > 0) {
-      const history = await TicketsHistory.create({
+      const history = await History.create({
         user: user,
         ticketsHistory: cart.tickets.map(ticket => ({ event: ticket.event, quantity: ticket.quantity })),
       });
       await history.save();
-      await ShoppingCart.findOneAndUpdate({ user }, { $set: { tickets: [] } });
+      await Cart.findOneAndUpdate({ user }, { $set: { tickets: [] } });
       return res.status(200).send("Payment processed and added to history successfully");
     } else {
       return res.status(400).send("Cart is empty");
@@ -66,12 +67,19 @@ const processPayment = async (req, res) => {
 const getPurchasedTickets = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const history = await TicketsHistory.findOne({ user: userId }).populate({
+    const history = await History.findOne({ user: userId }).populate({
+      model: Event,
       path: "ticketsHistory.event",
-      model: "Event",
       select: "-relatedActs"
     });
-    return res.status(200).json({ tickets: history ? history.ticketsHistory : [] });
+    const currentTime = new Date().getTime();
+    const timeLimit = 10 * 1000;
+    const purchaseTolerance = currentTime - timeLimit;
+
+    const purchasedTickets = history.ticketsHistory
+    .filter(ticket => ticket.timestamps >= purchaseTolerance)
+    .sort((a, b) => b.timestamps - a.timestamps);
+    return res.status(200).json({ tickets: purchasedTickets });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -80,12 +88,13 @@ const getPurchasedTickets = async (req, res) => {
 const getAllTicketsHistory = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const history = await TicketsHistory.find({ user: userId }).populate({
+    const history = await History.findOne({ user: userId }).populate({
+      model: Event,
       path: "ticketsHistory.event",
-      model: "Event",
       select: "-relatedActs"
     });
-    return res.status(200).json({ tickets: history });
+    const ticketsHistory = history.ticketsHistory.sort((a, b) => b.timestamps - a.timestamps);
+    return res.status(200).json({ tickets: ticketsHistory });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }
@@ -95,7 +104,7 @@ const removeFromCart = async (req, res) => {
   try {
     const userId = req.params.userId;
     const ticketId = req.params.ticketId;
-    const cart = await ShoppingCart.findOneAndUpdate(
+    const cart = await Cart.findOneAndUpdate(
       { user: userId },
       { $pull: { tickets: { _id: ticketId } } },
       { new: true }

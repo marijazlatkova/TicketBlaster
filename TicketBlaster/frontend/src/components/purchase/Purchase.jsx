@@ -27,9 +27,9 @@ export const Purchase = () => {
     fetchPurchasedTickets();
   }, [userId]);
 
-  const calculatePrice = (t) => {
-    const quantity = t.quantity;
-    const price = t.event.price;
+  const calculatePrice = (ticket) => {
+    const quantity = ticket.quantity;
+    const price = ticket.event.price;
     const priceParts = price.split("$");
     const priceValue = Number(priceParts[1]);
     return quantity * priceValue;
@@ -44,28 +44,28 @@ export const Purchase = () => {
     <div className={style["purchase"]}>
       <h2 className={style["title"]}>Thank you for your purchase!</h2>
       {tickets &&
-        tickets.map((t, i) => {
-          const totalPrice = calculatePrice(t);
+        tickets.map((ticket, index) => {
+          const totalPrice = calculatePrice(ticket);
           return (
-            <div key={i}>
+            <div key={ticket._id}>
               <div className={style["wrapper"]}>
                 <div className={style["first-section"]}>
                   <img
                     className={style["event-image"]}
-                    src={`http://localhost:10002/images/${t.event.image}`}
-                    alt={t.event.name}
+                    src={`http://localhost:10002/images/${ticket.event.image}`}
+                    alt={ticket.event.name}
                   />
                   <div className={style["event-info"]}>
-                    <h2 className={style["event-name"]}>{t.event.name}</h2>
+                    <h2 className={style["event-name"]}>{ticket.event.name}</h2>
                     <p className={style["event-date"]}>
-                      {new Date(t.event.date).toLocaleDateString("en-US", {
+                      {new Date(ticket.event.date).toLocaleDateString("en-US", {
                         year: "numeric",
                         month: "long",
                         day: "numeric",
                       })}
                     </p>
                     <p className={style["event-location"]}>
-                      {t.event.location}
+                      {ticket.event.location}
                     </p>
                   </div>
                 </div>
@@ -77,14 +77,14 @@ export const Purchase = () => {
                         ${totalPrice.toFixed(2)} USD
                       </p>
                       <p className={style["event-total-price"]}>
-                        {t.quantity} x {t.event.price} USD
+                        {ticket.quantity} x {ticket.event.price} USD
                       </p>
                     </div>
                     <button
                       className={style["print-button"]}
                       onClick={() => {
                         setPopup(true);
-                        setPopupTicket(t);
+                        setPopupTicket(ticket);
                       }}
                     >
                       Print
@@ -93,11 +93,11 @@ export const Purchase = () => {
                 </div>
               </div>
               <br />
-              {i === tickets.length - 1 && <hr className={style["hr"]} />}
+              {index === tickets.length - 1 && <hr className={style["hr"]} />}
             </div>
           );
         })}
-      {popup && popupTicket && (
+      {popupTicket && (
         <div className={style["popup-wrapper"]}>
           <img className={style["logo"]} src={logo} alt="logo" />
           <button

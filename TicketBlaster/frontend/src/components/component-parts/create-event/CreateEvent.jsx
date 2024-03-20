@@ -187,9 +187,9 @@ export const CreateEvent = () => {
                 {selectedCategory !== "" &&
                   events
                     .filter((event) => event.category === selectedCategory)
-                    .map((event, i) => {
+                    .map((event) => {
                       return (
-                        <option key={i} value={event.name}>
+                        <option key={event._id} value={event.name}>
                           {event.name} -{" "}
                           {new Date(event.date).toLocaleDateString("en-US", {
                             year: "numeric",
@@ -217,9 +217,9 @@ export const CreateEvent = () => {
             </div>
           </div>
           <div>
-            {relatedEvents.map((event, i) => {
+            {relatedEvents.map((event) => {
               return (
-                <div key={i}>
+                <div key={event._id}>
                   <div>
                     <img
                       src={`http://localhost:10002/images/${event.image}`}

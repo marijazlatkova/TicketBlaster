@@ -43,44 +43,41 @@ export const StandUpComedy = () => {
     <div className={style["stand-up-comedy"]}>
       <h2>Stand-up Comedy</h2>
       <div className={style["comedies"]}>
-        {comedies &&
-          comedies
-            .filter((comedy) => comedy.category === "Stand-up Comedy")
-            .slice(0, displayComedies)
-            .map((comedy, i) => (
-              <div key={i} className={style["comedy"]}>
-                <div>
-                  <img
-                    src={`http://localhost:10002/images/${comedy.image}`}
-                    alt={comedy.name}
-                  />
-                </div>
-                <div className={style["first-section"]}>
-                  <p className={style["comedy-name"]}>{comedy.name}</p>
-                  <p className={style["comedy-date"]}>
-                    {new Date(comedy.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
-                  </p>
-                  <p className={style["comedy-details"]}>
-                    {truncateEventDetails(comedy.eventDetails)}
-                  </p>
-                  <div className={style["second-section"]}>
-                    <p className={style["comedy-location"]}>
-                      {comedy.location}
-                    </p>
-                    <Link
-                      className={style["get-tickets"]}
-                      to={`/event/${comedy._id}`}
-                    >
-                      Get Tickets
-                    </Link>
-                  </div>
+        {comedies
+          .filter((comedy) => comedy.category === "Stand-up Comedy")
+          .slice(0, displayComedies)
+          .map((comedy) => (
+            <div key={comedy._id} className={style["comedy"]}>
+              <div>
+                <img
+                  src={`http://localhost:10002/images/${comedy.image}`}
+                  alt={comedy.name}
+                />
+              </div>
+              <div className={style["first-section"]}>
+                <p className={style["comedy-name"]}>{comedy.name}</p>
+                <p className={style["comedy-date"]}>
+                  {new Date(comedy.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+                <p className={style["comedy-details"]}>
+                  {truncateEventDetails(comedy.eventDetails)}
+                </p>
+                <div className={style["second-section"]}>
+                  <p className={style["comedy-location"]}>{comedy.location}</p>
+                  <Link
+                    className={style["get-tickets"]}
+                    to={`/event/${comedy._id}`}
+                  >
+                    Get Tickets
+                  </Link>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
       </div>
       {comedies.length > displayComedies && (
         <Link

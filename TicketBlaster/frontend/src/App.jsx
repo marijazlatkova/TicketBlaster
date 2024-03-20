@@ -18,6 +18,7 @@ import { UserAdmin } from "./components/user-admin/UserAdmin";
 import { CreateEvent } from "./components/component-parts/create-event/CreateEvent";
 import { Events } from "./components/component-parts/events/Events";
 import { Users } from "./components/component-parts/users/Users";
+import { TicketsHistory } from "./components/component-parts/tickets-history/TicketsHistory";
 import { Footer } from "./components/footer/Footer";
 
 export const App = () => {
@@ -50,7 +51,7 @@ export const App = () => {
               <Route path="users" element={<Users />} />
             </>
           )}
-          <Route path="tickets-history" />
+          <Route path="tickets-history" element={<TicketsHistory />} />
           <Route path="user-details" />
         </Route>
       </Routes>

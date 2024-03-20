@@ -158,8 +158,8 @@ export const EventDetails = () => {
       <h2 className={style["related-acts-title"]}>Related Acts</h2>
       <div className={style["third-section"]}>
         {eventDetails.relatedActs &&
-          eventDetails.relatedActs.map((event, i) => (
-            <div key={i} className={style["related-acts"]}>
+          eventDetails.relatedActs.map((event) => (
+            <div key={event._id} className={style["related-acts"]}>
               <img
                 src={`http://localhost:10002/images/${event.image}`}
                 alt={event.name}

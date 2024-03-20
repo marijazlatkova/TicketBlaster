@@ -52,8 +52,8 @@ export const Search = () => {
       <div className={style["search-container"]}>
         <h2>Search Results for: {searchQuery}</h2>
         {events.length > 0 ? (
-          events.map((event, i) => (
-            <div key={i} className={style["search"]}>
+          events.map((event) => (
+            <div key={event._id} className={style["search"]}>
               <div>
                 <img
                   src={`http://localhost:10002/images/${event.image}`}

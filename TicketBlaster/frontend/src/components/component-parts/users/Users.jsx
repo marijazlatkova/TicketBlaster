@@ -91,48 +91,47 @@ export const Users = () => {
 
   return (
     <div>
-      {users &&
-        users
-          .filter((user) => user.role !== "administrator")
-          .map((user) => {
-            return (
-              <div key={user._id}>
+      {users
+        .filter((user) => user.role !== "administrator")
+        .map((user) => {
+          return (
+            <div key={user._id}>
+              <div>
+                <img
+                  width={"200px"}
+                  height={"150px"}
+                  src={`http://localhost:10002/images/${user.image}`}
+                  alt={user.name}
+                />
                 <div>
-                  <img
-                    width={"200px"}
-                    height={"150px"}
-                    src={`http://localhost:10002/images/${user.image}`}
-                    alt={user.name}
-                  />
-                  <div>
-                    <p>{user.fullname}</p>
-                    <p>{user.email}</p>
-                  </div>
+                  <p>{user.fullname}</p>
+                  <p>{user.email}</p>
                 </div>
+              </div>
+              <div>
                 <div>
-                  <div>
-                    {user.role === "user" && (
-                      <button onClick={() => makeAdmin(user._id)}>
-                        Make Admin
-                      </button>
-                    )}
-                  </div>
-                  <div>
-                    {user.role === "admin" && (
-                      <button onClick={() => makeUser(user._id)}>
-                        Make User
-                      </button>
-                    )}
-                  </div>
-                  {user.role !== "administrator" && (
-                    <button onClick={() => deleteUser(user._id)}>
-                      Delete User
+                  {user.role === "user" && (
+                    <button onClick={() => makeAdmin(user._id)}>
+                      Make Admin
                     </button>
                   )}
                 </div>
+                <div>
+                  {user.role === "admin" && (
+                    <button onClick={() => makeUser(user._id)}>
+                      Make User
+                    </button>
+                  )}
+                </div>
+                {user.role !== "administrator" && (
+                  <button onClick={() => deleteUser(user._id)}>
+                    Delete User
+                  </button>
+                )}
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       {popUpUser && (
         <div>
           <h2>Are you sure?</h2>

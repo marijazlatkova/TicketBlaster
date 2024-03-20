@@ -43,44 +43,43 @@ export const MusicalConcerts = () => {
     <div className={style["musical-concerts"]}>
       <h2>Musical Concerts</h2>
       <div className={style["concerts"]}>
-        {concerts &&
-          concerts
-            .filter((concert) => concert.category === "Musical Concert")
-            .slice(0, displayConcerts)
-            .map((concert, i) => (
-              <div key={i} className={style["concert"]}>
-                <div>
-                  <img
-                    src={`http://localhost:10002/images/${concert.image}`}
-                    alt={concert.name}
-                  />
-                </div>
-                <div className={style["first-section"]}>
-                  <p className={style["concert-name"]}>{concert.name}</p>
-                  <p className={style["concert-date"]}>
-                    {new Date(concert.date).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "long",
-                      day: "numeric",
-                    })}
+        {concerts
+          .filter((concert) => concert.category === "Musical Concert")
+          .slice(0, displayConcerts)
+          .map((concert) => (
+            <div key={concert._id} className={style["concert"]}>
+              <div>
+                <img
+                  src={`http://localhost:10002/images/${concert.image}`}
+                  alt={concert.name}
+                />
+              </div>
+              <div className={style["first-section"]}>
+                <p className={style["concert-name"]}>{concert.name}</p>
+                <p className={style["concert-date"]}>
+                  {new Date(concert.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </p>
+                <p className={style["concert-details"]}>
+                  {truncateEventDetails(concert.eventDetails)}
+                </p>
+                <div className={style["second-section"]}>
+                  <p className={style["concert-location"]}>
+                    {concert.location}
                   </p>
-                  <p className={style["concert-details"]}>
-                    {truncateEventDetails(concert.eventDetails)}
-                  </p>
-                  <div className={style["second-section"]}>
-                    <p className={style["concert-location"]}>
-                      {concert.location}
-                    </p>
-                    <Link
-                      className={style["get-tickets"]}
-                      to={`/event/${concert._id}`}
-                    >
-                      Get Tickets
-                    </Link>
-                  </div>
+                  <Link
+                    className={style["get-tickets"]}
+                    to={`/event/${concert._id}`}
+                  >
+                    Get Tickets
+                  </Link>
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
       </div>
       {concerts.length > displayConcerts && (
         <Link

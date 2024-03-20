@@ -33,16 +33,16 @@ export const ShoppingCart = () => {
         }
       );
       setTickets((prevTickets) =>
-        prevTickets.filter((t) => t._id !== ticketId)
+        prevTickets.filter((ticket) => ticket._id !== ticketId)
       );
     } catch (err) {
       console.log(err);
     }
   };
 
-  const calculatePrice = (t) => {
-    const quantity = t.quantity;
-    const price = t.event.price;
+  const calculatePrice = (ticket) => {
+    const quantity = ticket.quantity;
+    const price = ticket.event.price;
     const priceParts = price.split("$");
     const priceValue = Number(priceParts[1]);
     return quantity * priceValue;
@@ -55,33 +55,33 @@ export const ShoppingCart = () => {
         <p className={style["empty-cart"]}>No items in cart</p>
       ) : (
         <>
-          {tickets.map((t, i) => {
-            const totalPrice = calculatePrice(t);
+          {tickets.map((ticket, index) => {
+            const totalPrice = calculatePrice(ticket);
             return (
-              <div key={i}>
+              <div key={ticket._id}>
                 <div className={style["wrapper"]}>
                   <div className={style["first-section"]}>
-                    {t.event && t.event.image && (
-                      <img
-                        className={style["event-image"]}
-                        src={`http://localhost:10002/images/${t.event.image}`}
-                        alt={t.event.name}
-                      />
-                    )}
+                    <img
+                      className={style["event-image"]}
+                      src={`http://localhost:10002/images/${ticket.event.image}`}
+                      alt={ticket.event.name}
+                    />
                     <div className={style["event-info"]}>
                       <h2 className={style["event-name"]}>
-                        {t.event && t.event.name}
+                        {ticket.event.name}
                       </h2>
                       <p className={style["event-date"]}>
-                        {t.event &&
-                          new Date(t.event.date).toLocaleDateString("en-US", {
+                        {new Date(ticket.event.date).toLocaleDateString(
+                          "en-US",
+                          {
                             year: "numeric",
                             month: "long",
                             day: "numeric",
-                          })}
+                          }
+                        )}
                       </p>
                       <p className={style["event-location"]}>
-                        {t.event && t.event.location}
+                        {ticket.event.location}
                       </p>
                     </div>
                   </div>
@@ -91,19 +91,19 @@ export const ShoppingCart = () => {
                       ${totalPrice.toFixed(2)} USD
                     </p>
                     <p className={style["event-total-price"]}>
-                      {t.quantity} x {t.event && t.event.price} USD
+                      {ticket.quantity} x {ticket.event.price} USD
                     </p>
                     <button
                       className={style["remove-button"]}
                       type="button"
-                      onClick={() => removeFromCart(userId, t._id)}
+                      onClick={() => removeFromCart(userId, ticket._id)}
                     >
                       Remove
                     </button>
                   </div>
                 </div>
                 <br />
-                {i === tickets.length - 1 && <hr className={style["hr"]} />}
+                {index === tickets.length - 1 && <hr className={style["hr"]} />}
               </div>
             );
           })}
