@@ -1,0 +1,41 @@
+.user-admin {
+  margin: 90px 270px;
+}
+
+.user-admin h2 {
+  font-size: 27px;
+  margin-top: -3px;
+}
+
+.user-admin a {
+  color: #000000;
+  font-weight: bold;
+  font-size: 13.5px;
+}
+
+.user-admin a:focus,
+.user-admin a:focus {
+  color: #FF48AB;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+.left-section {
+  display: flex;
+  gap: 30px;
+}
+
+.create-event {
+  height: 35px;
+  width: 120px;
+  background-color: #FF48AB;
+  font-size: 13.5px;
+  color: #fff;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}

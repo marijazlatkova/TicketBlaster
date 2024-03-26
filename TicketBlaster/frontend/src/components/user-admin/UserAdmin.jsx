@@ -2,6 +2,8 @@ import { useState, useEffect, useContext } from "react";
 import { useNavigate, useLocation, Link, Outlet } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 
+import style from "./user-admin.module.css";
+
 export const UserAdmin = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -49,7 +51,11 @@ export const UserAdmin = () => {
   };
 
   useEffect(() => {
-    navigate("/user/user-details");
+    if (userRole === "administrator") {
+      navigate("/user/events");
+    } else {
+      navigate("/user/tickets-history");
+    }
   }, [userRole]);
 
   useEffect(() => {
@@ -57,47 +63,55 @@ export const UserAdmin = () => {
   }, [location]);
 
   return (
-    <div>
-      <div>
-        <h2>{pageTitle}</h2>
-        {userRole === "administrator" &&
-          !createEvent &&
-          location.pathname.split("/")[2] === "events" && (
-            <Link to="/user/create-event" onClick={toggleCreateEvent}>
-              Create Event
-            </Link>
-          )}
-      </div>
-      <div>
-        <ul>
-          {userRole === "administrator" && (
+    <div className={style["user-admin"]}>
+      <div className={style["container"]}>
+        <div className={style["left-section"]}>
+          <h2>{pageTitle}</h2>
+          {userRole === "administrator" &&
+            !createEvent &&
+            location.pathname.split("/")[2] === "events" && (
+              <button
+                className={style["create-event"]}
+                onClick={() => {
+                  toggleCreateEvent();
+                  navigate("/user/create-event");
+                }}
+              >
+                Create Event
+              </button>
+            )}
+        </div>
+        <div className={style["right-section"]}>
+          <ul>
+            {userRole === "administrator" && (
+              <li>
+                <Link to="/user/events" onClick={resetCreateEvent}>
+                  Events
+                </Link>
+              </li>
+            )}
+            {userRole === "administrator" && (
+              <li>
+                <Link to="/user/users" onClick={resetCreateEvent}>
+                  Users
+                </Link>
+              </li>
+            )}
             <li>
-              <Link to="/user/events" onClick={resetCreateEvent}>
-                Events
+              <Link to="/user/tickets-history" onClick={resetCreateEvent}>
+                Tickets History
               </Link>
             </li>
-          )}
-          {userRole === "administrator" && (
             <li>
-              <Link to="/user/users" onClick={resetCreateEvent}>
-                Users
+              <Link to="/user/user-details" onClick={resetCreateEvent}>
+                User Details
               </Link>
             </li>
-          )}
-          <li>
-            <Link to="/user/tickets-history" onClick={resetCreateEvent}>
-              Tickets History
-            </Link>
-          </li>
-          <li>
-            <Link to="/user/user-details" onClick={resetCreateEvent}>
-              User Details
-            </Link>
-          </li>
-          <li>
-            <Link onClick={handleLogout}>Log Out</Link>
-          </li>
-        </ul>
+            <li>
+              <Link onClick={handleLogout}>Log Out</Link>
+            </li>
+          </ul>
+        </div>
       </div>
       <Outlet />
     </div>

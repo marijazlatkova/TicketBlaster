@@ -47,14 +47,14 @@ export const Nav = () => {
         </div>
         <ul>
           {isLoggedIn ? (
-            <div className={style["shopping-cart-user-details-wrapper"]}>
+            <div className={style["shopping-cart-user-wrapper"]}>
               <li>
                 <Link to="/shopping-cart">
                   <i className="fa fa-shopping-cart"></i>
                 </Link>
               </li>
               <li>
-                <Link to="/user/user-details">
+                <Link to="/user/tickets-history">
                   <i className="fa fa-user"></i>
                 </Link>
               </li>
