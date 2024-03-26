@@ -28,13 +28,16 @@ const addToCart = async (req, res) => {
 const getCartTickets = async (req, res) => {
   try {
     const userId = req.params.userId;
-    const tickets = await Cart.findOne({ user: userId }).populate({
+    const cart = await Cart.findOne({ user: userId }).populate({
       model: Event,
       path: "tickets.event",
       select: "-relatedActs"
     });
-    const cart = tickets.sort((a, b) => b.timestamps - a.timestamps);
-    return res.status(200).json({ tickets: cart });
+    let sortedTickets = [];
+    if (cart) {
+      sortedTickets = cart.tickets.sort((a, b) => b.timestamps - a.timestamps);
+    }
+    return res.status(200).send({ tickets: sortedTickets });
   } catch (err) {
     return res.status(500).send("Internal Server Error");
   }

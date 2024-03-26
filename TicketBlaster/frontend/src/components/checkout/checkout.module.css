@@ -104,8 +104,7 @@
   width: 50%;
   position: relative;
   bottom: 10px;
-  height: 1px;
-  background: #ccc;
+  border: 1px solid #e1e1e1cd;
 }
 
 .total-price-wrapper {

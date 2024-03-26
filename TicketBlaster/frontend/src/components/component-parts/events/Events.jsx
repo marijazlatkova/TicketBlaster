@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+import style from "./events.module.css";
+
 export const Events = () => {
   const [events, setEvents] = useState([]);
   const [popUp, setPopUp] = useState(false);
@@ -50,39 +52,55 @@ export const Events = () => {
   };
 
   return (
-    <div>
+    <div className={style["events"]}>
       {events.map((event) => (
-        <div key={event._id}>
-          <div>
-            <img
-              width="200px"
-              height="200px"
-              src={`http://localhost:10002/images/${event.image}`}
-              alt={event.name}
-            />
-            <p>{event.name}</p>
-            <p>
-              {new Date(event.date).toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "long",
-                day: "numeric",
-              })}
-            </p>
-            <p>{event.location}</p>
+        <div>
+          <div key={event._id} className={style["container"]}>
+            <div className={style["content"]}>
+              <img
+                className={style["event-image"]}
+                src={`http://localhost:10002/images/${event.image}`}
+                alt={event.name}
+              />
+              <div className={style["name-date-location-wrapper"]}>
+                <p className={style["event-name"]}>{event.name}</p>
+                <div className={style["date-location-wrapper"]}>
+                  <p className={style["event-date"]}>
+                    {new Date(event.date).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    })}
+                  </p>
+                  <p className={style["event-location"]}>{event.location}</p>
+                </div>
+              </div>
+            </div>
+            <button
+              className={style["popup-delete"]}
+              onClick={() => openPopUp(event._id)}
+            >
+              Delete Event
+            </button>
           </div>
-          <button onClick={() => openPopUp(event._id)}>Delete Event</button>
+          <hr className={style["hr"]} />
         </div>
       ))}
       {popUp && (
-        <div>
+        <div className={style["popup-wrapper"]}>
           <h2>Are you sure?</h2>
           <p>
             You are about to delete an event from the system. Please proceed
             with caution.
           </p>
-          <div>
-            <button onClick={closePopUp}>Cancel</button>
-            <button onClick={() => removeEvent(eventToRemove)}>
+          <div className={style["cancel-delete-wrapper"]}>
+            <button className={style["cancel"]} onClick={closePopUp}>
+              Cancel
+            </button>
+            <button
+              className={style["delete-event"]}
+              onClick={() => removeEvent(eventToRemove)}
+            >
               Delete Event
             </button>
           </div>

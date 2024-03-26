@@ -8,7 +8,7 @@ import style from "./nav.module.css";
 export const Nav = () => {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
-  const { isLoggedIn, handleSearchQuery } = useContext(AuthContext);
+  const { isLoggedIn, userRole, handleSearchQuery } = useContext(AuthContext);
 
   const handleSearchInputChange = (e) => {
     if (e.key === "Enter") {
@@ -54,9 +54,15 @@ export const Nav = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/user/tickets-history">
-                  <i className="fa fa-user"></i>
-                </Link>
+                {userRole === "administrator" ? (
+                  <Link to="/user/events">
+                    <i className="fa fa-user"></i>
+                  </Link>
+                ) : (
+                  <Link to="/user/tickets-history">
+                    <i className="fa fa-user"></i>
+                  </Link>
+                )}
               </li>
             </div>
           ) : (
