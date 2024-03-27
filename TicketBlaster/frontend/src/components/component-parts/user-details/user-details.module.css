@@ -1,0 +1,105 @@
+.user-details {
+  display: flex;
+  flex-direction: column;
+  gap: 35px;
+}
+
+.user-form {
+  display: flex;
+  flex-direction: row;
+  gap: 45px;
+}
+
+.first-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.first-section input {
+  display: none;
+}
+
+.user-image {
+  width: 120px;
+  height: 108px;
+  border-radius: 50%;
+}
+
+.upload-avatar,
+.submit {
+  border-radius: 50px;
+  cursor: pointer;
+  margin-bottom: 10px;
+}
+
+.upload-avatar {
+  background-color: #FFF;
+  padding: 10px 20px;
+  color: #EE47A0;
+  border: 2px solid #00000097;
+}
+
+.submit {
+  background-color: #000;
+  color: #FFF;
+  padding: 11px 42px;
+  border: none;
+}
+
+.second-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.second-section label,
+.password-form label {
+  font-size: 13.5px;
+  color: #393939;
+  font-weight: bold;
+}
+
+.second-section input,
+.password-form input {
+  padding: 8px 55px;
+  border-radius: 20px;
+  border: 2px solid #00000081;
+  margin: 11px 0px 11px 0px;
+}
+
+.password-wrapper {
+  display: flex;
+  justify-content: space-between;
+  width: 46%;
+  margin-bottom: 40px;
+}
+
+.password-wrapper h2 {
+  font-size: 25px;
+}
+
+.change-password {
+  background-color: #FF48AB;
+  color: #ffffffd2;
+  padding: 11px 40px;
+  border: none;
+  border-radius: 50px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.password-form {
+  display: flex;
+  gap: 20px;
+}
+
+.password-form input {
+  padding: 8px 25px;
+}
+
+.password,
+.retype-password {
+  display: flex;
+  flex-direction: column;
+}

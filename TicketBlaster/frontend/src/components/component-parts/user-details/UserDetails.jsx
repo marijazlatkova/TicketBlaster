@@ -2,6 +2,8 @@ import { useState, useContext, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext";
 
+import style from "./user-details.module.css";
+
 export const UserDetails = () => {
   const navigate = useNavigate();
   const [passwordForm, setPasswordForm] = useState(false);
@@ -92,66 +94,78 @@ export const UserDetails = () => {
   };
 
   return (
-    <div>
+    <div className={style["user-details"]}>
+      <form onSubmit={handleDataChange}>
+        <div className={style["user-form"]}>
+          <div className={style["first-section"]}>
+            <input type="file" ref={fileInput} onChange={handleImageChange} />
+            <img
+              className={style["user-image"]}
+              src={`http://localhost:10002/images/${userImage}`}
+            />
+            <button
+              className={style["upload-avatar"]}
+              type="button"
+              onClick={handleUploadClick}
+            >
+              Upload Avatar
+            </button>
+            <button className={style["submit"]} type="submit">
+              Submit
+            </button>
+          </div>
+          <div className={style["second-section"]}>
+            <label>Full Name</label>
+            <input
+              type="text"
+              value={fullname}
+              onChange={(e) => setFullname(e.target.value)}
+            />
+            <label>Email</label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </div>
+        </div>
+      </form>
       <div>
-        <form onSubmit={handleDataChange}>
-          <input
-            type="file"
-            ref={fileInput}
-            style={{ display: "none" }}
-            onChange={handleImageChange}
-          />
-          <img src={`http://localhost:10002/images/${userImage}`} />
-          <br />
-          <button type="button" onClick={handleUploadClick}>
-            Upload Avatar
+        <div className={style["password-wrapper"]}>
+          <h2>Password</h2>
+          <button
+            className={style["change-password"]}
+            onClick={() => setPasswordForm(!passwordForm)}
+          >
+            Change Password
           </button>
-          <br />
-          <button type="submit">Submit</button>
-          <br />
-          <label>Full Name</label>
-          <br />
-          <input
-            type="text"
-            value={fullname}
-            onChange={(e) => setFullname(e.target.value)}
-          />
-          <br />
-          <label>Email</label>
-          <br />
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </form>
-      </div>
-      <div>
-        <h2>Password</h2>
-        <button onClick={() => setPasswordForm(!passwordForm)}>
-          Change Password
-        </button>
+        </div>
         {passwordForm && (
           <form onSubmit={handlePasswordChange}>
-            <label>Password</label>
+            <div className={style["password-form"]}>
+              <div className={style["password"]}>
+                <label>Password</label>
+                <input
+                  type="password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </div>
+              <div className={style["retype-password"]}>
+                <label>Re-type Password</label>
+                <input
+                  type="password"
+                  required
+                  value={reTypePassword}
+                  onChange={(e) => setReTypePassword(e.target.value)}
+                />
+              </div>
+            </div>
             <br />
-            <input
-              type="password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
-            <br />
-            <label>Re-type Password</label>
-            <br />
-            <input
-              type="password"
-              required
-              value={reTypePassword}
-              onChange={(e) => setReTypePassword(e.target.value)}
-            />
-            <br />
-            <button type="submit">Submit</button>
+            <button className={style["submit"]} type="submit">
+              Submit
+            </button>
           </form>
         )}
       </div>
