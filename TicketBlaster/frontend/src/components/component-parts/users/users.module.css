@@ -1,0 +1,108 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.first-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-image {
+  width: 78px;
+  height: 72px;
+  border-radius: 50%;
+}
+
+.user-fullname {
+  font-size: 15px;
+  font-weight: bold;
+}
+
+.user-email {
+  font-size: 13.5px;
+  color: #a7a7a7d6;
+  font-weight: bold;
+}
+
+.second-section {
+  display: flex;
+}
+
+.delete-user,
+.make-admin,
+.make-user {
+  flex: 1;
+  padding: 10px 20px;
+  margin-right: 10px;
+  font-size: 12px;
+  background-color: #FFF;
+  color: #000;
+  border-radius: 50px;
+  border: 2px solid #EE47A0;
+  cursor: pointer;
+}
+
+.delete-user {
+  padding: 11px 20px;
+  background-color: #000;
+  color: #FFF;
+  border: none;
+}
+
+.make-admin {
+  padding: 10px 16px;
+  color: #EE47A0;
+  border: 2px solid #000;
+}
+
+.popup-wrapper {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  border: 2px solid #ccc;
+  border-radius: 20px;
+  padding: 30px;
+  box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.15);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.buttons-wrapper {
+  display: flex;
+  justify-content: end;
+  margin-top: 30px;
+  gap: 20px;
+}
+
+.downgrade-user,
+.make-user-admin,
+.remove-user,
+.cancel {
+  padding: 10px 22px;
+  font-size: 12px;
+  background-color: #000;
+  color: #FFF;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel {
+  padding: 10px 35px;
+  border: 2px solid #000000;
+  background-color: #ffffff;
+  color: #000000;
+}
