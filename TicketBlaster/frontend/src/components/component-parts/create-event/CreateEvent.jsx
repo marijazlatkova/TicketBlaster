@@ -1,8 +1,11 @@
 import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+
 import style from "./create-event.module.css";
 
 export const CreateEvent = () => {
+  const navigate = useNavigate();
+  const fileInput = useRef(null);
   const [events, setEvents] = useState([]);
   const [eventToAdd, setEventToAdd] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -19,9 +22,7 @@ export const CreateEvent = () => {
     image: "",
     relatedActs: [],
   });
-  const fileInput = useRef(null);
   const [dateError, setDateError] = useState("");
-  const navigate = useNavigate();
 
   const handleInputChange = (e, field) => {
     setEventData({ ...eventData, [field]: e.target.value });
