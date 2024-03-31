@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import style from "./create-event.module.css";
 
 export const CreateEvent = () => {
   const [events, setEvents] = useState([]);
@@ -18,8 +19,8 @@ export const CreateEvent = () => {
     image: "",
     relatedActs: [],
   });
+  const fileInput = useRef(null);
   const [dateError, setDateError] = useState("");
-
   const navigate = useNavigate();
 
   const handleInputChange = (e, field) => {
@@ -110,38 +111,35 @@ export const CreateEvent = () => {
     }
   };
 
+  const handleUploadClick = () => {
+    fileInput.current.click();
+  };
+
   return (
-    <div>
-      <form method="post" encType="multipart/form-data">
-        <div>
-          <div>
+    <div className={style["create-event"]}>
+      <form method="POST" encType="multipart/form-data">
+        <div className={style["first-section"]}>
+          <div className={style["event-name"]}>
             <label htmlFor="event-name">Event Name</label>
+            <br />
             <input
               type="text"
               value={eventData.name}
               onChange={(e) => handleInputChange(e, "name")}
             />
           </div>
-          <div>
-            <label htmlFor="file">Upload Event Art</label>
-            <input type="file" onChange={handleImagePreview} required />
-          </div>
-          <div>
-            <img src={previewImage} alt="Event Preview Image" />
-            <p>Event Photo</p>
-          </div>
-        </div>
-        <div>
-          <div>
+          <div className={style["event-category"]}>
             <label htmlFor="category">Category</label>
+            <br />
             <select value={selectedCategory} onChange={handleCategoryChange}>
               <option value=""></option>
               <option value="Musical Concert">Musical Concert</option>
               <option value="Stand-up Comedy">Stand Up Comedy</option>
             </select>
           </div>
-          <div>
+          <div className={style["event-date"]}>
             <label htmlFor="date">Date</label>
+            <br />
             <input
               type="date"
               value={eventData.date}
@@ -150,34 +148,64 @@ export const CreateEvent = () => {
             {dateError && <p>{dateError}</p>}
           </div>
         </div>
-        <div>
-          <label htmlFor="eventDetails">Event Details</label>
-          <textarea
-            value={eventData.eventDetails}
-            onChange={(e) => handleInputChange(e, "eventDetails")}
-          />
-        </div>
-        <div>
-          <div>
-            <label htmlFor="price">Ticket Price</label>
+        <div className={style["second-section"]}>
+          <div className={style["image-wrapper"]}>
+            <button
+              className={style["upload-image"]}
+              type="button"
+              onClick={handleUploadClick}
+            >
+              Upload Event Art
+            </button>
             <input
-              type="text"
-              value={eventData.price}
-              onChange={(e) => handleInputChange(e, "price")}
+              className={style["file-input"]}
+              type="file"
+              ref={fileInput}
+              onChange={handleImagePreview}
+              required
             />
+            <div className={style["event-image"]}>
+              <p>Event Photo</p>
+              {previewImage && (
+                <img className={style["preview-image"]} src={previewImage} />
+              )}
+            </div>
           </div>
-          <div>
-            <label htmlFor="location">Location</label>
-            <input
-              type="text"
-              value={eventData.location}
-              onChange={(e) => handleInputChange(e, "location")}
-            />
+          <div className={style["event-details-wrapper"]}>
+            <div>
+              <label htmlFor="eventDetails">Event Details</label>
+              <br />
+              <textarea
+                className={style["event-details"]}
+                value={eventData.eventDetails}
+                onChange={(e) => handleInputChange(e, "eventDetails")}
+              />
+            </div>
+            <div className={style["location-price-wrapper"]}>
+              <div>
+                <label htmlFor="location">Location</label>
+                <br />
+                <input
+                  type="text"
+                  value={eventData.location}
+                  onChange={(e) => handleInputChange(e, "location")}
+                />
+              </div>
+              <div>
+                <label htmlFor="price">Ticket Price</label>
+                <br />
+                <input
+                  type="text"
+                  value={eventData.price}
+                  onChange={(e) => handleInputChange(e, "price")}
+                />
+              </div>
+            </div>
           </div>
         </div>
-        <div>
-          <h2>Related Events</h2>
-          <div>
+        <div className={style["related-events"]}>
+          <h3>Related Events</h3>
+          <div className={style["select-events"]}>
             <div>
               <select
                 onChange={handleSelectEvent}
@@ -201,50 +229,68 @@ export const CreateEvent = () => {
                       );
                     })}
               </select>
-              {selectedCategory === "" && <p>Please select a category.</p>}
+              {selectedCategory === "" && (
+                <p className={style["select-category"]}>
+                  Please select a category.
+                </p>
+              )}
             </div>
             <div>
-              <button type="button" onClick={handleAddEvent}>
+              <button
+                className={style["add"]}
+                type="button"
+                onClick={handleAddEvent}
+              >
                 Add
               </button>
-              {relatedEvents.length === 2 ? (
-                <p>You've reached maxiumum amount of events.</p>
-              ) : relatedEvents.find(
-                  (event) => event._id === eventToAdd._id
-                ) ? (
-                <p>This event is already added.</p>
-              ) : null}
             </div>
+            <button
+              className={style["save"]}
+              type="button"
+              onClick={createEvent}
+            >
+              Save
+            </button>
           </div>
-          <div>
-            {relatedEvents.map((event) => {
+          <div className={style["messages"]}>
+            {relatedEvents.length === 2 ? (
+              <p>You've reached maximum amount of events.</p>
+            ) : relatedEvents.find((event) => event._id === eventToAdd._id) ? (
+              <p>This event is already added.</p>
+            ) : null}
+          </div>
+          <div className={style["container"]}>
+            {relatedEvents.map((event, i) => {
               return (
-                <div key={event._id}>
-                  <div>
-                    <img
-                      src={`http://localhost:10002/images/${event.image}`}
-                      alt="Related Event"
-                    />
+                <div key={event._id} className={style["content"]}>
+                  <img
+                    className={style["related-event-image"]}
+                    src={`http://localhost:10002/images/${event.image}`}
+                  />
+                  <div className={style["wrapper"]}>
                     <div>
-                      <div>
-                        <p>{event.name}</p>
-                        <p>
-                          {new Date(event.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
-                        </p>
-                        <p>{event.location}</p>
-                      </div>
-                      <div>
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveEvent(i)}
-                        >
-                          Remove
-                        </button>
-                      </div>
+                      <p className={style["related-event-name"]}>
+                        {event.name}
+                      </p>
+                      <p className={style["related-event-date"]}>
+                        {new Date(event.date).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </p>
+                      <p className={style["related-event-location"]}>
+                        {event.location}
+                      </p>
+                    </div>
+                    <div>
+                      <button
+                        className={style["remove"]}
+                        type="button"
+                        onClick={() => handleRemoveEvent(i)}
+                      >
+                        Remove
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -252,9 +298,6 @@ export const CreateEvent = () => {
             })}
           </div>
         </div>
-        <button type="button" onClick={createEvent}>
-          Save
-        </button>
       </form>
     </div>
   );
