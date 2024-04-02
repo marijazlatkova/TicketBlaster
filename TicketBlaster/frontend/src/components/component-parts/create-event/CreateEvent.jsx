@@ -245,13 +245,15 @@ export const CreateEvent = () => {
                 Add
               </button>
             </div>
-            <button
-              className={style["save"]}
-              type="button"
-              onClick={createEvent}
-            >
-              Save
-            </button>
+            {selectedCategory && (
+              <button
+                className={style["save"]}
+                type="button"
+                onClick={createEvent}
+              >
+                Save
+              </button>
+            )}
           </div>
           <div className={style["messages"]}>
             {relatedEvents.length === 2 ? (
